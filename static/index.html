@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedDevice RAG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b5cab'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f2f6fa; --panel:#ffffff; --panel-2:#f7fafc; --ink:#0f1f33; --ink-2:#33475b; --muted:#66788a; --line:#dfe7ef;
+  --primary:#0b5cab; --primary-ink:#ffffff; --primary-soft:#e7f0fa;
+  --side:#0a2540; --side-2:#0f3157; --side-ink:#d8e5f2; --side-muted:#8fa7bf;
+  --rag:#0e8a7d; --rag-soft:#e5f5f2; --base:#b25e09; --base-soft:#fdf2e4;
+  --danger:#c0352b; --danger-soft:#fdecea; --good:#16794c;
+  --c-fda:#0b5cab; --c-eu:#4338ca; --c-std:#0e7490; --c-int:#7c3aed; --c-up:#b25e09;
+  --shadow:0 1px 2px rgba(16,40,70,.06),0 4px 16px rgba(16,40,70,.06);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1420; --panel:#111d2b; --panel-2:#0f1a27; --ink:#e7eef6; --ink-2:#c3d0dd; --muted:#8ea1b4; --line:#1f3043;
+    --primary:#4b9be8; --primary-ink:#06121f; --primary-soft:#12263c;
+    --side:#07111c; --side-2:#0d1d2e; --side-ink:#d8e5f2; --side-muted:#7d93a9;
+    --rag:#34c3b1; --rag-soft:#0f2b2a; --base:#f0a24b; --base-soft:#2e2112;
+    --danger:#f2766b; --danger-soft:#33171a; --good:#4cc98b;
+    --c-fda:#6aaef0; --c-eu:#a5a8ff; --c-std:#4fc6dd; --c-int:#c4a2ff; --c-up:#f0a24b;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25); }
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- layout ---------- */
+.app{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,var(--side),var(--side-2));color:var(--side-ink);padding:20px 14px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:11px;align-items:center;padding:0 6px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#1475d1,#0e8a7d);display:grid;place-items:center;box-shadow:0 4px 14px rgba(20,117,209,.35)}
+.logo svg{width:24px;height:24px}
+.brand b{display:block;font-size:15.5px;letter-spacing:-.01em;color:#fff}
+.brand small{color:var(--side-muted);font-size:11.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{display:flex;align-items:center;gap:11px;padding:10px 12px;border:0;background:transparent;color:var(--side-ink);border-radius:10px;cursor:pointer;text-align:left;font-weight:500}
+.nav button:hover{background:rgba(255,255,255,.06)}
+.nav button.active{background:rgba(75,155,232,.18);color:#fff;box-shadow:inset 3px 0 0 #4b9be8}
+.nav .count{margin-left:auto;font-size:11.5px;background:rgba(255,255,255,.1);padding:1px 8px;border-radius:999px;color:var(--side-ink)}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+.status{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;font-size:12px;color:var(--side-muted)}
+.status .row{display:flex;align-items:center;gap:7px;color:var(--side-ink);font-weight:500;font-size:12.5px;margin-bottom:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:#34c3b1;box-shadow:0 0 0 3px rgba(52,195,177,.2)}
+.disclaimer{font-size:11px;color:var(--side-muted);line-height:1.45;padding:0 4px}
+main{padding:26px 32px 60px;min-width:0}
+.page-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.page-head h1{font-size:22px;margin:0;letter-spacing:-.02em}
+.page-head p{margin:2px 0 0;color:var(--muted)}
+.page-head .right{margin-left:auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:18px}
+.hidden{display:none !important}
+
+/* ---------- ask ---------- */
+.ask-box textarea{width:100%;min-height:84px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;background:var(--panel-2);color:var(--ink)}
+.ask-box textarea:focus,select:focus,input:focus{outline:2px solid var(--primary);outline-offset:1px}
+.scope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.scope label{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel-2);color:var(--ink);border-radius:10px;padding:8px 10px;font:inherit;max-width:100%}
+.scope select{min-width:260px;max-width:520px}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:var(--primary-ink);border:0;padding:10px 18px;border-radius:10px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.06)}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--ink-2);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--panel-2)}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:8px}
+.btn.danger{background:transparent;color:var(--danger);border:1px solid var(--line)}
+.btn.danger:hover{background:var(--danger-soft)}
+.k{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px}
+.k input{accent-color:var(--primary)}
+.hint{color:var(--muted);font-size:12.5px;margin-left:auto}
+.examples{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.ex{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.ex:hover{border-color:var(--primary);color:var(--primary)}
+.ex i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.err{color:var(--danger);margin-top:10px;font-size:14px}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.ans{overflow:hidden}
+.ans-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ans-head .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
+.ans-head b{display:block;font-size:14.5px}
+.ans-head small{color:var(--muted);font-size:12px}
+.ans.rag .ic{background:var(--rag-soft);color:var(--rag)} .ans.rag{border-top:3px solid var(--rag)}
+.ans.base .ic{background:var(--base-soft);color:var(--base)} .ans.base{border-top:3px solid var(--base)}
+.pill{margin-left:auto;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.ans.rag .pill{background:var(--rag-soft);color:var(--rag)}
+.ans.base .pill{background:var(--base-soft);color:var(--base)}
+.ans-body{padding:6px 18px 16px}
+.ans-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;padding:10px 18px;border-top:1px solid var(--line);background:var(--panel-2)}
+.md{overflow-wrap:anywhere;color:var(--ink)}
+.md p{margin:.6em 0} .md ul,.md ol{padding-left:1.3em;margin:.5em 0}
+.md table{border-collapse:collapse;font-size:13px;display:block;overflow-x:auto;margin:.6em 0}
+.md th,.md td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.md th{background:var(--panel-2)}
+.md code{background:var(--panel-2);padding:1px 5px;border-radius:5px;font-size:.92em}
+.cite{display:inline-block;background:var(--rag-soft);color:var(--rag);border-radius:5px;padding:0 5px;font-size:11px;font-weight:700;text-decoration:none;margin:0 1px;vertical-align:1px}
+.cite:hover{background:var(--rag);color:var(--panel)}
+.skeleton{display:flex;flex-direction:column;gap:9px;padding:12px 0}
+.skeleton i{display:block;height:11px;border-radius:6px;background:linear-gradient(90deg,var(--line),var(--panel-2),var(--line));background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+
+.section-title{display:flex;align-items:center;gap:8px;font-size:15px;margin:26px 0 12px}
+.section-title small{color:var(--muted);font-weight:400}
+.sources{display:grid;gap:10px}
+.src{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:start;padding:14px 16px}
+.src.flash{outline:2px solid var(--rag)}
+.rank{width:30px;height:30px;border-radius:9px;background:var(--rag-soft);color:var(--rag);display:grid;place-items:center;font-weight:700;font-size:13px}
+.src h4{margin:0;font-size:14px}
+.src .sec{color:var(--muted);font-size:12.5px;margin:1px 0 6px}
+.src p{margin:0;font-size:13px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.src.open p{-webkit-line-clamp:unset}
+.rel{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:96px}
+.relbar{width:84px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.relbar i{display:block;height:100%;background:var(--rag)}
+.rel small{color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.step{display:flex;gap:12px;padding:16px}
+.step .n{width:28px;height:28px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.step b{font-size:14px} .step p{margin:3px 0 0;color:var(--muted);font-size:13px}
+@media (max-width:820px){.how{grid-template-columns:1fr}}
+
+/* ---------- tags ---------- */
+.tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;line-height:1.5}
+.cat-FDA{color:var(--c-fda)} .cat-EU{color:var(--c-eu)} .cat-Standards{color:var(--c-std)} .cat-Internal{color:var(--c-int)} .cat-Uploaded{color:var(--c-up)}
+.bg-FDA{background:var(--c-fda)} .bg-EU{background:var(--c-eu)} .bg-Standards{background:var(--c-std)} .bg-Internal{background:var(--c-int)} .bg-Uploaded{background:var(--c-up)}
+.ft{width:40px;height:48px;border-radius:7px;display:grid;place-items:center;font-size:10px;font-weight:800;letter-spacing:.04em;color:#fff;flex:none;position:relative}
+.ft::after{content:"";position:absolute;top:0;right:0;border-width:0 10px 10px 0;border-style:solid;border-color:var(--panel) rgba(255,255,255,.35) rgba(255,255,255,.35) var(--panel);border-radius:0 7px 0 3px}
+.ft-pdf{background:#d1453b} .ft-docx{background:#2b6cd4} .ft-md{background:#4f6478} .ft-txt{background:#6b7f92} .ft-html{background:#d97706}
+
+/* ---------- library ---------- */
+.drop{border:2px dashed var(--line);border-radius:var(--radius);background:var(--panel);padding:26px;display:flex;align-items:center;gap:18px;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--primary);background:var(--primary-soft)}
+.drop .big{width:52px;height:52px;border-radius:14px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;flex:none}
+.drop .big svg{width:26px;height:26px}
+.drop b{font-size:15px}
+.drop p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.uploads{display:grid;gap:8px;margin-top:10px}
+.up{display:flex;align-items:center;gap:12px;padding:10px 14px;font-size:13px}
+.up .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden;max-width:260px}
+.up .bar i{display:block;height:100%;background:var(--primary);width:0;transition:width .2s}
+.up.ok{color:var(--good)} .up.bad{color:var(--danger)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:22px 0 14px}
+.toolbar input[type=search]{min-width:240px;flex:1;max-width:380px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.filters button.active{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.filters button span{opacity:.6;margin-left:4px}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.doc{padding:16px;display:flex;flex-direction:column;gap:12px;transition:.15s}
+.doc:hover{border-color:var(--primary)}
+.doc-top{display:flex;gap:12px;align-items:flex-start}
+.doc h3{font-size:14px;margin:0 0 6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.doc h3:hover{color:var(--primary)}
+.doc .meta{color:var(--muted);font-size:12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.doc .meta .new{color:var(--c-up);font-weight:600}
+.doc-actions{display:flex;gap:6px;margin-top:auto}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+
+/* ---------- viewer drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(5,15,28,.45);backdrop-filter:blur(2px);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(900px,100%);background:var(--bg);z-index:21;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.2);animation:slide .2s ease-out}
+@keyframes slide{from{transform:translateX(40px);opacity:.4}}
+.drawer-head{display:flex;gap:14px;align-items:center;padding:16px 20px;background:var(--panel);border-bottom:1px solid var(--line)}
+.drawer-head h2{font-size:16px;margin:0 0 4px;line-height:1.35}
+.drawer-head .meta{color:var(--muted);font-size:12.5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.drawer-head .x{margin-left:auto;border:0;background:transparent;cursor:pointer;color:var(--muted);padding:6px;border-radius:8px}
+.drawer-head .x:hover{background:var(--panel-2)}
+.drawer-tools{display:flex;gap:8px;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:6px 12px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.seg button.active{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.drawer-body{flex:1;overflow:auto;padding:22px}
+.paper{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:36px 44px;max-width:780px;margin:0 auto}
+.paper h1{font-size:21px;letter-spacing:-.01em;border-bottom:2px solid var(--primary);padding-bottom:10px}
+.paper h2{font-size:16px;margin-top:1.6em;color:var(--primary)}
+.paper blockquote{margin:0 0 1em;padding:10px 14px;border-left:4px solid var(--c-up);background:var(--base-soft);border-radius:0 8px 8px 0;color:var(--ink-2);font-size:13px}
+.paper pre.plain{white-space:pre-wrap;font:inherit;margin:0}
+.pagebreak{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11.5px;margin:22px 0;text-transform:uppercase;letter-spacing:.06em}
+.pagebreak::before,.pagebreak::after{content:"";height:1px;background:var(--line);flex:1}
+mark{background:#fde68a;color:#111;border-radius:3px;padding:0 2px;scroll-margin:120px}
+iframe.pdf{width:100%;height:100%;min-height:70vh;border:1px solid var(--line);border-radius:10px;background:#fff}
+
+/* ---------- eval ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kpi{padding:16px}
+.kpi .l{color:var(--muted);font-size:12.5px;font-weight:500}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--rag)}
+.kpi .v small{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}
+.kpi .v2{font-size:15px;font-weight:600;color:var(--base);font-variant-numeric:tabular-nums}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:10px 12px;font-size:12.5px}
+table.t td{border-bottom:1px solid var(--line);padding:10px 12px;vertical-align:middle;font-variant-numeric:tabular-nums}
+table.t tr:last-child td{border-bottom:0}
+.bar2{display:flex;align-items:center;gap:8px}
+.bar2 i{display:block;height:8px;border-radius:4px}
+.bar2 i.r{background:var(--rag)} .bar2 i.b{background:var(--base)}
+.scroll{overflow-x:auto}
+tr.q{cursor:pointer} tr.q:hover td{background:var(--panel-2)}
+.yes{color:var(--danger);font-weight:600} .no{color:var(--good)}
+.legend{display:flex;gap:16px;font-size:12.5px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .lr::before{background:var(--rag)} .legend .lb::before{background:var(--base)}
+
+/* ---------- toast ---------- */
+.toasts{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:40}
+.toast{background:var(--ink);color:var(--panel);padding:10px 14px;border-radius:10px;font-size:13.5px;box-shadow:var(--shadow);max-width:360px;animation:slide .2s}
+.toast.bad{background:var(--danger);color:#fff}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){ .compare{grid-template-columns:1fr} }
+@media (max-width:820px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .docs{grid-template-columns:minmax(0,1fr)}
+  .toolbar input[type=search]{min-width:0;width:100%;max-width:none}
+  .nav .count{display:none}
+  .brand>div:last-child{min-width:0}
+  aside{min-width:0;position:static;height:auto;flex-direction:row;align-items:center;flex-wrap:wrap;padding:12px 16px;gap:10px}
+  .brand small,.side-foot{display:none}
+  .nav{flex-direction:row;margin-left:auto;flex-wrap:wrap}
+  .nav button{padding:8px 10px}
+  .nav button span.lbl{display:none}
+  main{padding:18px 16px 50px}
+  .scope select{min-width:0;width:100%}
+  .paper{padding:22px 18px}
+  .drop{flex-direction:column;text-align:center}
+  .src{grid-template-columns:30px 1fr}
+  .rel{grid-column:2;flex-direction:row;align-items:center}
+  .hint{margin-left:0}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5h.01"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9"/><path d="M12 12v9M8.5 15.5 12 12l3.5 3.5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2 12h4l2-5 4 10 2-5h8"/></symbol>
+</svg>
+
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-opacity=".55"/><path d="M5 12.5h3l1.5-3 3 6 1.5-3h5"/></svg></div>
+      <div><b>MedDevice RAG</b><small>Regulatory &amp; Quality Intelligence</small></div>
+    </div>
+    <nav class="nav">
+      <button data-view="ask" class="active"><svg class="i"><use href="#i-chat"/></svg><span class="lbl">Ask Assistant</span></button>
+      <button data-view="library"><svg class="i"><use href="#i-folder"/></svg><span class="lbl">Document Library</span><span class="count" id="nav-count">–</span></button>
+      <button data-view="eval"><svg class="i"><use href="#i-chart"/></svg><span class="lbl">Evaluation</span></button>
+    </nav>
+    <div class="side-foot">
+      <div class="status">
+        <div class="row"><span class="dot"></span><span id="st-model">Groq LLM</span></div>
+        <div id="st-corpus">Loading index…</div>
+      </div>
+      <div class="disclaimer">Decision-support demo for regulatory &amp; quality teams. Not for clinical use. Veridian MedTech documents are fictional.</div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ================= ASK ================= -->
+    <section id="view-ask">
+      <div class="page-head">
+        <div><h1>Ask the regulatory assistant</h1>
+        <p>Every question is answered twice by the same LLM: grounded in your documents (RAG) and from model memory alone.</p></div>
+      </div>
+      <div class="card pad ask-box">
+        <div class="scope">
+          <label for="scope">Search in</label>
+          <select id="scope"><option value="">All documents</option></select>
+          <span id="scope-note" class="hint" style="margin-left:0"></span>
+        </div>
+        <textarea id="q" placeholder="e.g. What must a manufacturer report to FDA within 5 work days?"></textarea>
+        <div class="actions">
+          <button class="btn" id="ask"><svg class="i"><use href="#i-send"/></svg>Compare answers</button>
+          <label class="k">Passages <input type="range" id="k" min="1" max="10" value="5"><b id="kv">5</b></label>
+          <span class="hint">⌘/Ctrl + Enter to send</span>
+        </div>
+        <div class="examples" id="examples"></div>
+        <div class="err" id="err"></div>
+      </div>
+
+      <div class="how" id="how">
+        <div class="card step"><span class="n">1</span><div><b>Retrieve</b><p>BM25 search finds the most relevant passages in the regulatory library and your uploads.</p></div></div>
+        <div class="card step"><span class="n">2</span><div><b>Ground</b><p>The LLM answers only from those passages and cites each claim, e.g. <span class="cite">1</span>.</p></div></div>
+        <div class="card step"><span class="n">3</span><div><b>Compare</b><p>The same LLM answers without documents, so you can spot gaps and hallucinations.</p></div></div>
+      </div>
+
+      <div class="compare hidden" id="compare">
+        <div class="card ans rag">
+          <div class="ans-head"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div>
+            <div><b>With RAG</b><small>Grounded in retrieved documents</small></div><span class="pill" id="rag-pill">Evidence-based</span></div>
+          <div class="ans-body md" id="rag-ans"></div>
+          <div class="ans-meta" id="rag-meta"></div>
+        </div>
+        <div class="card ans base">
+          <div class="ans-head"><div class="ic"><svg class="i"><use href="#i-alert"/></svg></div>
+            <div><b>Without RAG</b><small>LLM training knowledge only</small></div><span class="pill">Unverified</span></div>
+          <div class="ans-body md" id="base-ans"></div>
+          <div class="ans-meta" id="base-meta"></div>
+        </div>
+      </div>
+      <div id="sources-wrap" class="hidden">
+        <div class="section-title"><svg class="i"><use href="#i-folder"/></svg>Retrieved evidence <small id="src-note"></small></div>
+        <div class="sources" id="sources"></div>
+      </div>
+    </section>
+
+    <!-- ================= LIBRARY ================= -->
+    <section id="view-library" class="hidden">
+      <div class="page-head">
+        <div><h1>Document library</h1><p id="lib-sub">All documents indexed for retrieval.</p></div>
+      </div>
+      <label class="drop" id="drop">
+        <div class="big"><svg class="i"><use href="#i-upload"/></svg></div>
+        <div><b>Upload documents</b><p>Drag &amp; drop or click to browse · PDF, DOCX, TXT, Markdown, HTML · up to 30 MB each. Files are indexed immediately.</p></div>
+        <input type="file" id="file" multiple accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm" hidden>
+      </label>
+      <div class="uploads" id="uploads"></div>
+      <div class="toolbar">
+        <input type="search" id="lib-search" placeholder="Search titles…">
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="docs" id="docs"></div>
+    </section>
+
+    <!-- ================= EVAL ================= -->
+    <section id="view-eval" class="hidden">
+      <div class="page-head"><div><h1>Evaluation: RAG vs. no retrieval</h1><p>Benchmark on the built-in library, scored automatically and by a blind LLM judge.</p></div></div>
+      <div id="eval-body" class="card pad">Loading…</div>
+    </section>
+  </main>
+</div>
+
+<div id="viewer" class="hidden">
+  <div class="scrim" data-close></div>
+  <div class="drawer" role="dialog" aria-modal="true">
+    <div class="drawer-head">
+      <div class="ft" id="v-ft"></div>
+      <div style="min-width:0"><h2 id="v-title"></h2><div class="meta" id="v-meta"></div></div>
+      <button class="x" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="drawer-tools">
+      <div class="seg hidden" id="v-seg"><button data-mode="pdf" class="active">Original PDF</button><button data-mode="text">Extracted text</button></div>
+      <button class="btn sm" id="v-ask"><svg class="i"><use href="#i-chat"/></svg>Ask about this document</button>
+      <a class="btn sm ghost" id="v-open" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg>Open original</a>
+    </div>
+    <div class="drawer-body" id="v-body"></div>
+  </div>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const md = t => (window.marked && window.DOMPurify) ? DOMPurify.sanitize(marked.parse(t || "")) : `<p style="white-space:pre-wrap">${esc(t)}</p>`;
+const icon = n => `<svg class="i"><use href="#i-${n}"/></svg>`;
+const catKey = c => (c || "").split(" ")[0];          // "EU MDR" -> "EU"
+const fmtSize = b => b > 1048576 ? (b/1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b/1024)) + " KB";
+const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+const CATS = ["FDA","EU MDR","Standards","Internal","Uploaded"];
+let DOCS = [], FILTER = "All", LAST_SOURCES = [];
+
+function toast(msg, bad){ const t = document.createElement("div"); t.className = "toast" + (bad ? " bad" : ""); t.textContent = msg; $("#toasts").append(t); setTimeout(() => t.remove(), 4200); }
+
+/* ---------------- navigation ---------------- */
+function show(view){
+  for (const v of ["ask","library","eval"]) $("#view-" + v).classList.toggle("hidden", v !== view);
+  document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  if (view === "eval") loadEval();
+  if (location.hash.slice(1) !== view) history.replaceState(null, "", "#" + view);
+  window.scrollTo({top:0});
+}
+document.querySelectorAll(".nav button").forEach(b => b.onclick = () => show(b.dataset.view));
+
+/* ---------------- documents ---------------- */
+async function loadDocs(){
+  const r = await fetch("/api/documents"); const d = await r.json();
+  DOCS = d.documents;
+  const chunks = DOCS.reduce((a, x) => a + x.chunks, 0);
+  $("#nav-count").textContent = DOCS.length;
+  $("#st-corpus").textContent = `${DOCS.length} documents · ${chunks} indexed passages`;
+  $("#lib-sub").textContent = `${DOCS.length} documents · ${chunks} indexed passages · ${DOCS.filter(x => x.source === "uploaded").length} uploaded by you`;
+  renderScope(); renderFilters(); renderDocs();
+}
+fetch("/api/stats").then(r => r.json()).then(s => $("#st-model").textContent = "Groq · " + s.model.replace("openai/","")).catch(() => {});
+
+function renderScope(){
+  const sel = $("#scope"), cur = sel.value;
+  sel.innerHTML = `<option value="">All documents (${DOCS.length})</option>` + CATS.map(c => {
+    const ds = DOCS.filter(d => d.category === c); if (!ds.length) return "";
+    return `<optgroup label="${c}">${ds.map(d => `<option value="${esc(d.id)}">${esc(d.title)}</option>`).join("")}</optgroup>`;
+  }).join("");
+  sel.value = DOCS.some(d => d.id === cur) ? cur : "";
+  updateScopeNote();
+}
+function updateScopeNote(){
+  const d = DOCS.find(x => x.id === $("#scope").value);
+  $("#scope-note").innerHTML = d ? `Answers will use only <b>${esc(d.filename)}</b> · <a href="#" id="scope-clear">search all</a>` : "";
+  const c = $("#scope-clear"); if (c) c.onclick = e => { e.preventDefault(); $("#scope").value = ""; updateScopeNote(); };
+}
+$("#scope").onchange = updateScopeNote;
+
+function renderFilters(){
+  const counts = Object.fromEntries(CATS.map(c => [c, DOCS.filter(d => d.category === c).length]));
+  $("#filters").innerHTML = ["All", ...CATS.filter(c => counts[c])].map(c =>
+    `<button class="${c === FILTER ? "active" : ""}" data-f="${c}">${c}<span>${c === "All" ? DOCS.length : counts[c]}</span></button>`).join("");
+  $("#filters").querySelectorAll("button").forEach(b => b.onclick = () => { FILTER = b.dataset.f; renderFilters(); renderDocs(); });
+}
+$("#lib-search").oninput = renderDocs;
+
+function renderDocs(){
+  const q = $("#lib-search").value.trim().toLowerCase();
+  const list = DOCS.filter(d => (FILTER === "All" || d.category === FILTER) && (!q || (d.title + " " + d.filename).toLowerCase().includes(q)));
+  $("#docs").innerHTML = list.length ? list.map(d => `
+    <div class="card doc">
+      <div class="doc-top">
+        <div class="ft ft-${d.kind}">${d.kind.toUpperCase()}</div>
+        <div style="min-width:0">
+          <h3 data-view-doc="${esc(d.id)}" title="${esc(d.title)}">${esc(d.title)}</h3>
+          <div class="meta"><span class="tag cat-${catKey(d.category)}">${esc(d.category)}</span>
+            ${d.pages ? `<span>${plural(d.pages, "page")}</span>·` : ""}<span>${plural(d.chunks, "passage")}</span>·<span>${fmtSize(d.size_bytes)}</span></div>
+        </div>
+      </div>
+      <div class="doc-actions">
+        <button class="btn sm ghost" data-view-doc="${esc(d.id)}">${icon("eye")}View</button>
+        <button class="btn sm ghost" data-ask-doc="${esc(d.id)}">${icon("chat")}Ask</button>
+        ${d.source === "uploaded" ? `<button class="btn sm danger" data-del-doc="${esc(d.id)}" style="margin-left:auto">${icon("trash")}Delete</button>` : ""}
+      </div>
+    </div>`).join("") : `<div class="card empty" style="grid-column:1/-1">No documents match.</div>`;
+}
+document.addEventListener("click", e => {
+  const v = e.target.closest("[data-view-doc]"); if (v) return openViewer(v.dataset.viewDoc);
+  const a = e.target.closest("[data-ask-doc]"); if (a) return askAbout(a.dataset.askDoc);
+  const x = e.target.closest("[data-del-doc]"); if (x) return deleteDoc(x.dataset.delDoc);
+});
+function askAbout(id){
+  closeViewer(); show("ask"); $("#scope").value = id; updateScopeNote();
+  $("#q").focus(); toast("Questions will now be answered from this document only.");
+}
+async function deleteDoc(id){
+  const d = DOCS.find(x => x.id === id);
+  if (!confirm(`Delete "${d ? d.filename : id}" and remove it from the index?`)) return;
+  const r = await fetch("/api/documents/" + encodeURIComponent(id), {method:"DELETE"});
+  const j = await r.json();
+  if (!r.ok) return toast(j.error || "Delete failed", true);
+  toast("Document deleted"); loadDocs();
+}
+
+/* ---------------- upload ---------------- */
+const drop = $("#drop");
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => uploadFiles(e.dataTransfer.files));
+$("#file").onchange = e => { uploadFiles(e.target.files); e.target.value = ""; };
+
+function kindOf(name){
+  const ext = (name.split(".").pop() || "").toLowerCase();
+  return {pdf:"pdf", docx:"docx", md:"md", markdown:"md", txt:"txt", html:"html", htm:"html"}[ext] || "txt";
+}
+function uploadFiles(files){ [...files].forEach(uploadOne); }
+function uploadOne(file){
+  const row = document.createElement("div");
+  row.className = "card up";
+  const kind = kindOf(file.name);
+  row.innerHTML = `<div class="ft ft-${kind}" style="width:30px;height:36px;font-size:8px">${kind.toUpperCase()}</div>
+    <div style="min-width:0;flex:1"><b>${esc(file.name)}</b><div class="st" style="color:var(--muted)">Uploading…</div></div><div class="bar"><i></i></div>`;
+  $("#uploads").prepend(row);
+  const st = row.querySelector(".st"), bar = row.querySelector(".bar i");
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/upload");
+  xhr.setRequestHeader("X-Filename", encodeURIComponent(file.name));
+  xhr.upload.onprogress = e => { if (e.lengthComputable){ bar.style.width = (e.loaded / e.total * 90) + "%"; if (e.loaded === e.total) st.textContent = "Extracting text and indexing…"; } };
+  xhr.onload = () => {
+    let j = {}; try { j = JSON.parse(xhr.responseText); } catch {}
+    if (xhr.status === 200){
+      bar.style.width = "100%"; row.classList.add("ok");
+      const d = j.document;
+      st.innerHTML = `Indexed · ${d.pages ? plural(d.pages, "page") + " · " : ""}${plural(d.chunks, "passage")} · <a href="#" data-ask-doc="${esc(d.id)}">ask about it</a> · <a href="#" data-view-doc="${esc(d.id)}">view</a>`;
+      toast(`${file.name} added to the library`); loadDocs();
+    } else {
+      row.classList.add("bad"); row.querySelector(".bar").remove();
+      st.textContent = j.error || ("Upload failed (" + xhr.status + ")");
+      toast(st.textContent, true);
+    }
+  };
+  xhr.onerror = () => { row.classList.add("bad"); st.textContent = "Network error"; };
+  xhr.send(file);
+}
+
+/* ---------------- viewer ---------------- */
+let VIEW_DOC = null;
+async function openViewer(id, highlight){
+  const r = await fetch("/api/documents/" + encodeURIComponent(id));
+  const d = await r.json();
+  if (!r.ok) return toast(d.error || "Could not open document", true);
+  VIEW_DOC = d;
+  $("#v-ft").className = "ft ft-" + d.kind; $("#v-ft").textContent = d.kind.toUpperCase();
+  $("#v-title").textContent = d.title;
+  $("#v-meta").innerHTML = `<span class="tag cat-${catKey(d.category)}">${esc(d.category)}</span><span>${esc(d.filename)}</span>·${d.pages ? `<span>${plural(d.pages, "page")}</span>·` : ""}<span>${plural(d.chunks, "passage")}</span>·<span>${fmtSize(d.size_bytes)}</span>`;
+  $("#v-open").href = "/files/" + encodeURIComponent(d.id);
+  $("#v-seg").classList.toggle("hidden", d.kind !== "pdf");
+  $("#viewer").classList.remove("hidden"); document.body.style.overflow = "hidden";
+  renderViewer(d.kind === "pdf" && !highlight ? "pdf" : "text", highlight);
+}
+function renderViewer(mode, highlight){
+  const d = VIEW_DOC, body = $("#v-body");
+  document.querySelectorAll("#v-seg button").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
+  if (mode === "pdf"){ body.innerHTML = `<iframe class="pdf" src="/files/${encodeURIComponent(d.id)}#view=FitH" title="${esc(d.title)}"></iframe>`; return; }
+  let html;
+  if (d.kind === "md" || d.kind === "docx" || d.kind === "html") html = md(d.text);
+  else if (d.kind === "pdf") html = d.text.split("\f").map((p, i) => `${i ? `<div class="pagebreak">Page ${i + 1}</div>` : ""}<pre class="plain">${esc(p)}</pre>`).join("");
+  else html = `<pre class="plain">${esc(d.text)}</pre>`;
+  body.innerHTML = `<article class="paper md">${html}</article>`;
+  if (highlight) markPassage(body.querySelector("article"), highlight);
+}
+document.querySelectorAll("#v-seg button").forEach(b => b.onclick = () => renderViewer(b.dataset.mode));
+function markPassage(root, passage){
+  // highlight the first ~8 words of the retrieved passage inside the rendered document
+  const words = passage.replace(/[*_#>`]/g, "").split(/\s+/).filter(Boolean);
+  for (let n = Math.min(8, words.length); n >= 3; n--){
+    const probe = words.slice(0, n).join(" ").toLowerCase();
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())){
+      const norm = node.nodeValue.replace(/\s+/g, " ");
+      const i = norm.toLowerCase().indexOf(probe);
+      if (i >= 0 && norm === node.nodeValue){
+        const range = document.createRange(); range.setStart(node, i); range.setEnd(node, Math.min(node.length, i + Math.max(probe.length, 160)));
+        const m = document.createElement("mark"); range.surroundContents(m);
+        setTimeout(() => m.scrollIntoView({block:"center", behavior:"smooth"}), 60); return;
+      }
+    }
+  }
+}
+function closeViewer(){ $("#viewer").classList.add("hidden"); document.body.style.overflow = ""; $("#v-body").innerHTML = ""; }
+document.querySelectorAll("[data-close]").forEach(el => el.onclick = closeViewer);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeViewer(); });
+$("#v-ask").onclick = () => VIEW_DOC && askAbout(VIEW_DOC.id);
+
+/* ---------------- ask ---------------- */
+const EXAMPLES = [
+  ["What should a nurse do when the InfusePro 300 shows error E-401?", "Internal"],
+  ["Which pumps are affected by FSN-2026-07 and what should users do?", "Internal"],
+  ["Under SOP-QA-014, when must a CAPA be opened?", "Internal"],
+  ["What are the three IEC 62304 software safety classes?", "Standards"],
+  ["What are the EU MDR Article 87 serious incident reporting deadlines?", "EU MDR"],
+  ["When must a manufacturer submit a 5-day report to FDA?", "FDA"],
+  ["What must a cyber device premarket submission include under section 524B?", "FDA"],
+];
+$("#examples").innerHTML = EXAMPLES.map(([q, c]) => `<button class="ex" data-q="${esc(q)}"><i class="bg-${catKey(c)}"></i>${esc(q)}</button>`).join("");
+$("#examples").onclick = e => { const b = e.target.closest(".ex"); if (b){ $("#scope").value = ""; updateScopeNote(); $("#q").value = b.dataset.q; ask(); } };
+$("#k").oninput = e => $("#kv").textContent = e.target.value;
+$("#ask").onclick = ask;
+$("#q").addEventListener("keydown", e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) ask(); });
+
+const linkCites = h => h.replace(/\[(\d{1,2})\]/g, (m, n) => `<a class="cite" href="#" data-cite="${n}">${n}</a>`);
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-cite]"); if (!a) return;
+  e.preventDefault();
+  const el = document.getElementById("src-" + a.dataset.cite);
+  if (el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.add("flash", "open"); setTimeout(() => el.classList.remove("flash"), 1500); }
+});
+const skeleton = `<div class="skeleton"><i style="width:92%"></i><i style="width:85%"></i><i style="width:70%"></i><i style="width:88%"></i><i style="width:40%"></i></div>`;
+
+async function ask(){
+  const question = $("#q").value.trim(); if (!question) return $("#q").focus();
+  const scope = $("#scope").value;
+  $("#err").textContent = ""; $("#ask").disabled = true;
+  $("#compare").classList.remove("hidden"); $("#sources-wrap").classList.add("hidden"); $("#how").classList.add("hidden");
+  $("#rag-ans").innerHTML = skeleton; $("#base-ans").innerHTML = skeleton; $("#rag-meta").textContent = $("#base-meta").textContent = "";
+  try{
+    const r = await fetch("/api/ask", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({question, top_k: +$("#k").value, doc_ids: scope ? [scope] : []})});
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || r.statusText);
+    const cited = new Set([...d.rag.answer.matchAll(/\[(\d{1,2})\]/g)].map(m => m[1]));
+    $("#rag-pill").textContent = cited.size ? `${cited.size} source${cited.size > 1 ? "s" : ""} cited` : "Evidence-based";
+    $("#rag-ans").innerHTML = linkCites(md(d.rag.answer));
+    $("#base-ans").innerHTML = md(d.baseline.answer);
+    const meta = a => `<span>⏱ ${a.latency_s}s</span><span>${a.usage.total_tokens ?? "?"} tokens</span><span>${esc(a.model)}</span>`;
+    $("#rag-meta").innerHTML = meta(d.rag) + `<span>${d.rag.sources.length} passages retrieved</span>`;
+    $("#base-meta").innerHTML = meta(d.baseline) + `<span>no documents</span>`;
+    renderSources(d.rag.sources, scope);
+  }catch(err){
+    $("#err").textContent = "⚠ " + err.message; $("#compare").classList.add("hidden");
+  }finally{ $("#ask").disabled = false; }
+}
+function renderSources(src, scope){
+  LAST_SOURCES = src;
+  const max = Math.max(...src.map(s => s.score), 1e-9);
+  $("#src-note").textContent = scope ? "· limited to the selected document" : `· BM25 search across ${DOCS.length} documents`;
+  $("#sources").innerHTML = src.length ? src.map(s => `
+    <div class="card src" id="src-${s.rank}">
+      <div class="rank">${s.rank}</div>
+      <div style="min-width:0">
+        <h4>${esc(s.title)}</h4>
+        <div class="sec">${esc(s.section)} · <span class="tag cat-${catKey(s.category)}">${esc(s.category)}</span></div>
+        <p>${esc(s.text)}</p>
+      </div>
+      <div class="rel"><div class="relbar"><i style="width:${Math.round(s.score / max * 100)}%"></i></div><small>relevance ${s.score.toFixed(2)}</small>
+        <button class="btn sm ghost" data-open-src="${s.rank}">${icon("eye")}Open</button></div>
+    </div>`).join("") : `<div class="card empty">No matching passages were found${scope ? " in this document" : ""}.</div>`;
+  $("#sources-wrap").classList.remove("hidden");
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-open-src]"); if (!b) return;
+  const s = LAST_SOURCES.find(x => x.rank == b.dataset.openSrc); if (s) openViewer(s.doc_id, s.text);
+});
+
+/* ---------------- evaluation ---------------- */
+const pct = v => v == null ? "n/a" : Math.round(v * 100) + "%";
+const num = (v, d = 2) => v == null ? "n/a" : (+v).toFixed(d);
+let EVAL_LOADED = false;
+async function loadEval(){
+  if (EVAL_LOADED) return;
+  const box = $("#eval-body");
+  const r = await fetch("/api/eval");
+  if (!r.ok){ box.innerHTML = `No evaluation results yet. Run <code>python3 evaluate.py</code>, then reopen this tab.`; return; }
+  EVAL_LOADED = true;
+  const d = await r.json(), S = d.summary, o = S.overall;
+  box.classList.remove("card", "pad");
+  const kpi = (l, rv, bv, f) => `<div class="card kpi"><div class="l">${l}</div><div class="v">${f(rv)} <small>with RAG</small></div><div class="v2">${f(bv)} <small style="color:var(--muted);font-weight:500">without RAG</small></div></div>`;
+  const rows = [["Key-fact recall","key_fact_recall",pct,1],["Judge correctness (1–5)","correctness",num,5],["Judge completeness (1–5)","completeness",num,5],
+    ["Hallucination rate (lower is better)","hallucination_rate",pct,1],["Abstention rate","abstention_rate",pct,1],["Avg latency (s)","avg_latency_s",num,null],["Avg tokens / call","avg_tokens",v => num(v,0),null]];
+  const scopes = ["overall","public-regulatory","internal-company"].filter(s => S[s] && S[s].rag && S[s].rag.n);
+  const table = sc => { const s = S[sc]; return `<div class="section-title">${sc.replace("-", " ")} <small>n = ${s.rag.n}</small></div>
+    <div class="card scroll"><table class="t"><tr><th>Metric</th><th>With RAG</th><th>Without RAG</th></tr>${rows.map(([l,k,f,max]) => {
+      const bar = (v, c) => max ? `<div class="bar2"><i class="${c}" style="width:${Math.max(3, (v || 0) / max * 140)}px"></i>${f(v)}</div>` : f(v);
+      return `<tr><td>${l}</td><td>${bar(s.rag[k],"r")}</td><td>${bar(s.baseline[k],"b")}</td></tr>`; }).join("")}</table></div>`; };
+  box.innerHTML = `
+    <p style="color:var(--muted);margin:0 0 14px">Run ${esc(d.timestamp)} · generator <b>${esc(d.generator_model)}</b> · blind judge <b>${esc(d.judge_model)}</b> · top-k ${d.top_k} · ${d.corpus.num_documents} documents</p>
+    <div class="kpis">
+      ${kpi("Key-fact recall", o.rag.key_fact_recall, o.baseline.key_fact_recall, pct)}
+      ${kpi("Judge correctness (1–5)", o.rag.correctness, o.baseline.correctness, num)}
+      ${kpi("Hallucination rate", o.rag.hallucination_rate, o.baseline.hallucination_rate, pct)}
+      <div class="card kpi"><div class="l">Retrieval quality</div><div class="v" style="color:var(--primary)">${pct(d.retrieval.hit_at_k)} <small>hit@${d.top_k}</small></div><div class="v2" style="color:var(--ink-2)">${num(d.retrieval.mrr,3)} <small style="color:var(--muted);font-weight:500">MRR</small></div></div>
+    </div>
+    <div class="legend" style="margin-top:16px"><span class="lr">With RAG</span><span class="lb">Without RAG</span></div>
+    ${scopes.map(table).join("")}
+    <div class="section-title">Per-question results <small>click a row to compare answers</small></div>
+    <div class="card scroll"><table class="t">
+      <tr><th>ID</th><th>Question</th><th>Category</th><th>Retrieved</th><th>Recall</th><th>Judge</th><th>Hallucination</th></tr>
+      ${d.rows.map((r, i) => `<tr class="q" data-i="${i}"><td><b>${r.id}</b></td><td>${esc(r.question)}</td><td><span class="tag cat-${r.category.startsWith("internal") ? "Internal" : "FDA"}">${r.category}</span></td>
+        <td>${r.retrieval_hit ? "✓" : "✗"}</td><td>${pct(r.rag.key_fact_recall)} / ${pct(r.baseline.key_fact_recall)}</td>
+        <td>${r.rag.judge.correctness ?? "–"} / ${r.baseline.judge.correctness ?? "–"}</td>
+        <td><span class="${r.rag.judge.hallucination ? "yes" : "no"}">${r.rag.judge.hallucination ? "yes" : "no"}</span> / <span class="${r.baseline.judge.hallucination ? "yes" : "no"}">${r.baseline.judge.hallucination ? "yes" : "no"}</span></td></tr>
+        <tr class="hidden" id="qd-${i}"><td colspan="7" style="background:var(--panel-2)">
+          <p style="margin:4px 0 10px"><b>Reference answer:</b> ${esc(r.reference_answer)}</p>
+          <div class="compare" style="margin-top:0">
+            <div class="card ans rag"><div class="ans-head"><div class="ic">${icon("shield")}</div><div><b>With RAG</b></div></div><div class="ans-body md">${md(r.rag.answer)}</div><div class="ans-meta">Judge: ${esc(r.rag.judge.rationale)}</div></div>
+            <div class="card ans base"><div class="ans-head"><div class="ic">${icon("alert")}</div><div><b>Without RAG</b></div></div><div class="ans-body md">${md(r.baseline.answer)}</div><div class="ans-meta">Judge: ${esc(r.baseline.judge.rationale)}</div></div>
+          </div></td></tr>`).join("")}
+    </table></div>`;
+  box.querySelectorAll("tr.q").forEach(tr => tr.onclick = () => $("#qd-" + tr.dataset.i).classList.toggle("hidden"));
+}
+
+loadDocs().catch(() => toast("Could not reach the server", true));
+if (["library","eval"].includes(location.hash.slice(1))) show(location.hash.slice(1));
+if (location.hash.startsWith("#ask=")){ $("#q").value = decodeURIComponent(location.hash.slice(5)); ask(); }
+if (location.hash.startsWith("#doc=")){ const id = decodeURIComponent(location.hash.slice(5)); show("library"); openViewer(id); }
+</script>
+</body>
+</html>

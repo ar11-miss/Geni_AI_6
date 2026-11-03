@@ -1,0 +1,6 @@
+.env
+__pycache__/
+results/eval_log.txt
+data/uploads/
+tools/pdf2text
+.DS_Store

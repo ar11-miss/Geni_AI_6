@@ -1,0 +1,81 @@
+[
+  {"id": "Q01", "category": "public-regulatory", "source_docs": ["02_fda_510k_premarket_notification"],
+   "question": "What is the difference between a Special 510(k) and a Traditional 510(k), and what are FDA's review goals for each?",
+   "reference_answer": "A Special 510(k) is for a change to the manufacturer's own legally marketed device where the evaluation method is well established and results can be reviewed in summary or risk-analysis format; FDA aims to review it within 30 days. A Traditional 510(k) can be used in any situation; the MDUFA goal is a decision within 90 FDA days.",
+   "key_facts": [["own device", "own legally marketed", "manufacturer's own", "their own"], ["30 days", "30-day", "30 day"], ["90 fda days", "90 days", "90-day", "90 day"]]},
+
+  {"id": "Q02", "category": "public-regulatory", "source_docs": ["08_fda_postmarket_mdr_recalls"],
+   "question": "Within how many days must a manufacturer submit 30-day and 5-day Medical Device Reports to FDA, and what triggers a 5-day report?",
+   "reference_answer": "Under 21 CFR 803, 30-day reports are due within 30 calendar days of becoming aware of a death, serious injury or reportable malfunction. 5-day reports are due within 5 work days when the event necessitates remedial action to prevent an unreasonable risk of substantial harm to public health, or when FDA requests 5-day reports in writing.",
+   "key_facts": [["30 calendar days"], ["5 work days", "five work days", "5 working days", "5 business days"], ["remedial action"], ["written request", "fda request", "requested by fda", "fda has requested", "fda requests"]]},
+
+  {"id": "Q03", "category": "public-regulatory", "source_docs": ["06_iec62304_medical_device_software"],
+   "question": "What are the three IEC 62304 software safety classes?",
+   "reference_answer": "Class A: no injury or damage to health is possible; Class B: non-serious injury is possible; Class C: death or serious injury is possible.",
+   "key_facts": [["class a"], ["class b"], ["class c"], ["no injury"], ["non-serious injury", "non serious injury", "non‑serious injury"], ["death or serious injury"]]},
+
+  {"id": "Q04", "category": "public-regulatory", "source_docs": ["05_iso14971_risk_management"],
+   "question": "In what order of priority must risk control options be applied under ISO 14971:2019?",
+   "reference_answer": "1) Inherent safety by design and manufacture; 2) protective measures in the medical device itself or in the manufacturing process; 3) information for safety and, where appropriate, training of users.",
+   "key_facts": [["inherent safety", "inherently safe"], ["protective measure"], ["information for safety"]]},
+
+  {"id": "Q05", "category": "public-regulatory", "source_docs": ["07_eu_mdr_2017_745"],
+   "question": "Under EU MDR Article 87, what are the deadlines for reporting serious incidents to competent authorities?",
+   "reference_answer": "Immediately after establishing a causal relationship (or reasonable possibility) and not later than 15 days after awareness; for a serious public health threat not later than 2 days; for death or an unanticipated serious deterioration in health not later than 10 days.",
+   "key_facts": [["15 days", "15 calendar days"], ["2 days", "two days", "48 hours"], ["10 days", "ten days"]]},
+
+  {"id": "Q06", "category": "public-regulatory", "source_docs": ["04_qmsr_iso13485_design_controls"],
+   "question": "When did FDA's Quality Management System Regulation (QMSR) take effect, and which standard does it incorporate by reference?",
+   "reference_answer": "The QMSR (amended 21 CFR Part 820, final rule published February 2, 2024) became effective on February 2, 2026 and incorporates ISO 13485:2016 by reference.",
+   "key_facts": [["february 2, 2026", "2 february 2026", "feb 2, 2026", "feb. 2, 2026", "2026-02-02", "february 2 2026"], ["iso 13485"]]},
+
+  {"id": "Q07", "category": "public-regulatory", "source_docs": ["10_medical_device_cybersecurity"],
+   "question": "What must a premarket submission for a cyber device include under section 524B of the FD&C Act?",
+   "reference_answer": "A plan to monitor, identify and address postmarket vulnerabilities and exploits including coordinated vulnerability disclosure; processes providing reasonable assurance the device is cybersecure with postmarket updates and patches (regular cycle and out-of-cycle for critical vulnerabilities); and a Software Bill of Materials covering commercial, open-source and off-the-shelf components.",
+   "key_facts": [["sbom", "software bill of materials"], ["vulnerabilit"], ["patch"], ["coordinated vulnerability disclosure", "vulnerability disclosure"]]},
+
+  {"id": "Q08", "category": "public-regulatory", "source_docs": ["12_human_factors_usability"],
+   "question": "What is the minimum number of participants FDA recommends for each distinct user group in human factors validation testing?",
+   "reference_answer": "FDA recommends a minimum of 15 participants from each distinct user group.",
+   "key_facts": [["15", "fifteen"]]},
+
+  {"id": "Q09", "category": "public-regulatory", "source_docs": ["11_biocompatibility_iso10993"],
+   "question": "How are the contact duration categories defined in ISO 10993-1?",
+   "reference_answer": "Limited exposure (A): 24 hours or less; prolonged exposure (B): more than 24 hours up to 30 days; long-term exposure (C): more than 30 days (cumulative contact).",
+   "key_facts": [["24 hours", "24 h", "24 hrs"], ["30 days"], ["limited"], ["prolonged"], ["long-term", "long term", "permanent"]]},
+
+  {"id": "Q10", "category": "public-regulatory", "source_docs": ["07_eu_mdr_2017_745"],
+   "question": "How often must the Periodic Safety Update Report (PSUR) be updated for Class IIa versus Class IIb and Class III devices under the EU MDR?",
+   "reference_answer": "Class IIa: when necessary and at least every two years. Class IIb and Class III: at least annually.",
+   "key_facts": [["two years", "2 years", "biennial", "every 2 years"], ["annual", "every year", "once a year", "12 months"]]},
+
+  {"id": "Q11", "category": "public-regulatory", "source_docs": ["03_fda_pma_and_de_novo"],
+   "question": "What is FDA's MDUFA review goal for a De Novo classification request, and what happens once it is granted?",
+   "reference_answer": "FDA aims to decide within 150 FDA review days. Granting a De Novo creates a new classification regulation, and the device can serve as a predicate for future 510(k)s.",
+   "key_facts": [["150"], ["predicate"], ["classification regulation", "new classification", "new regulation"]]},
+
+  {"id": "Q12", "category": "internal-company", "source_docs": ["13_veridian_infusepro300_ifu"],
+   "question": "What should a nurse do when the Veridian InfusePro 300 infusion pump displays error code E-401?",
+   "reference_answer": "E-401 is a system fault (internal error). Stop the infusion, remove the pump from service, label it 'Do Not Use', and contact Veridian Technical Service; do not attempt to restart it on a patient.",
+   "key_facts": [["system fault", "internal error"], ["remove", "out of service", "from service"], ["do not use"], ["technical service"]]},
+
+  {"id": "Q13", "category": "internal-company", "source_docs": ["13_veridian_infusepro300_ifu"],
+   "question": "What is the default KVO rate on the Veridian InfusePro 300 and what range can it be configured to?",
+   "reference_answer": "Default KVO is 1.0 mL/h, configurable from 0.1 to 5.0 mL/h (or the programmed rate, if lower).",
+   "key_facts": [["1.0 ml/h", "1 ml/h", "1.0 ml/hr", "1 ml/hr", "1.0 ml per hour"], ["0.1"], ["5.0", "5 ml/h"]]},
+
+  {"id": "Q14", "category": "internal-company", "source_docs": ["14_veridian_sop_qa014_complaint_handling"],
+   "question": "Under Veridian SOP-QA-014, how quickly must Regulatory Affairs complete the reportability assessment, and what conditions require opening a CAPA?",
+   "reference_answer": "RA completes the initial MDR/vigilance reportability assessment within 2 business days of complaint entry. A CAPA is required for 3 or more complaints with the same failure mode within a rolling 90-day period, any death or serious injury with a confirmed device malfunction, or a statistically significant upward trend.",
+   "key_facts": [["2 business days", "two business days"], ["three or more", "3 or more", "≥3", ">= 3", "3+"], ["90-day", "90 day", "90 days"], ["upward trend", "statistically significant"]]},
+
+  {"id": "Q15", "category": "internal-company", "source_docs": ["15_veridian_fsn_2026_07_battery"],
+   "question": "Which InfusePro 300 pumps are affected by Field Safety Notice FSN-2026-07, and what interim action should users take?",
+   "reference_answer": "Serial numbers IP3-240001 to IP3-245500 running software 4.2.0 (4.2.1 is not affected). Keep pumps connected to AC mains whenever possible, especially for critical medications, do not rely on the battery gauge, and return the acknowledgement form within 10 days.",
+   "key_facts": [["ip3-240001"], ["ip3-245500"], ["4.2.0"], ["ac mains", "mains power", "plugged in", "connected to ac", "ac power"], ["4.2.1"]]},
+
+  {"id": "Q16", "category": "internal-company", "source_docs": ["15_veridian_fsn_2026_07_battery"],
+   "question": "By what date will Veridian install the software fix for the InfusePro 300 battery gauge issue, and how is the action classified in the United States?",
+   "reference_answer": "Veridian Field Service will install software 4.2.1 on all affected pumps by 15 December 2026; it is a correction reported under 21 CFR Part 806 and conducted as a voluntary Class II recall.",
+   "key_facts": [["15 december 2026", "december 15, 2026", "dec 15, 2026", "15 dec 2026", "2026-12-15"], ["class ii"]]}
+]

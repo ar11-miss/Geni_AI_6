@@ -1,0 +1,1635 @@
+{
+  "timestamp": "2026-11-03 23:01:47",
+  "generator_model": "openai/gpt-oss-120b",
+  "judge_model": "qwen/qwen3.8-27b",
+  "top_k": 5,
+  "corpus": {
+    "num_documents": 15,
+    "num_chunks": 82,
+    "vocab_size": 1381,
+    "model": "openai/gpt-oss-120b",
+    "top_k": 5
+  },
+  "retrieval": {
+    "hit_at_k": 1,
+    "mrr": 1.0
+  },
+  "summary": {
+    "overall": {
+      "rag": {
+        "n": 16,
+        "key_fact_recall": 0.984,
+        "correctness": 4.875,
+        "completeness": 4.875,
+        "hallucination_rate": 0.0,
+        "abstention_rate": 0.0,
+        "avg_latency_s": 0.929,
+        "avg_tokens": 1071.75
+      },
+      "baseline": {
+        "n": 16,
+        "key_fact_recall": 0.448,
+        "correctness": 2.438,
+        "completeness": 2.5,
+        "hallucination_rate": 0.438,
+        "abstention_rate": 0.312,
+        "avg_latency_s": 1.14,
+        "avg_tokens": 461.75
+      }
+    },
+    "public-regulatory": {
+      "rag": {
+        "n": 11,
+        "key_fact_recall": 1.0,
+        "correctness": 4.909,
+        "completeness": 5,
+        "hallucination_rate": 0.0,
+        "abstention_rate": 0.0,
+        "avg_latency_s": 0.94,
+        "avg_tokens": 1069.909
+      },
+      "baseline": {
+        "n": 11,
+        "key_fact_recall": 0.651,
+        "correctness": 3,
+        "completeness": 3.182,
+        "hallucination_rate": 0.636,
+        "abstention_rate": 0.0,
+        "avg_latency_s": 1.278,
+        "avg_tokens": 543.909
+      }
+    },
+    "internal-company": {
+      "rag": {
+        "n": 5,
+        "key_fact_recall": 0.95,
+        "correctness": 4.8,
+        "completeness": 4.6,
+        "hallucination_rate": 0.0,
+        "abstention_rate": 0.0,
+        "avg_latency_s": 0.906,
+        "avg_tokens": 1075.8
+      },
+      "baseline": {
+        "n": 5,
+        "key_fact_recall": 0.0,
+        "correctness": 1.2,
+        "completeness": 1,
+        "hallucination_rate": 0.0,
+        "abstention_rate": 1.0,
+        "avg_latency_s": 0.836,
+        "avg_tokens": 281
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "category": "public-regulatory",
+      "question": "What is the difference between a Special 510(k) and a Traditional 510(k), and what are FDA's review goals for each?",
+      "reference_answer": "A Special 510(k) is for a change to the manufacturer's own legally marketed device where the evaluation method is well established and results can be reviewed in summary or risk-analysis format; FDA aims to review it within 30 days. A Traditional 510(k) can be used in any situation; the MDUFA goal is a decision within 90 FDA days.",
+      "source_docs": [
+        "02_fda_510k_premarket_notification"
+      ],
+      "retrieved_docs": [
+        "02_fda_510k_premarket_notification",
+        "02_fda_510k_premarket_notification",
+        "02_fda_510k_premarket_notification",
+        "02_fda_510k_premarket_notification",
+        "02_fda_510k_premarket_notification"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "Types of 510(k)",
+          "score": 1.0,
+          "text": "- Traditional 510(k): the standard pathway, usable in any situation.\n- Special 510(k): for a change to the manufacturer's own legally marketed device where the method to evaluate the change is well established and results can be reviewed in a summary or risk analysis format. FDA's goal is to review Special 510(k)s within 30 days.\n- Abbreviated 510(k): relies on FDA guidance documents, special controls, or FDA-recognized consensus standards to demonstrate equivalence, often using summary reports."
+        },
+        {
+          "rank": 2,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "Review Process and Timelines",
+          "score": 0.773,
+          "text": "Under the MDUFA performance goals, FDA aims to make a decision on a Traditional 510(k) within 90 FDA days (the clock pauses while the submitter responds to questions). Within 15 calendar days of receipt, FDA performs an acceptance review using the Refuse to Accept (RTA) checklist. If FDA issues an Additional Information (AI) request, the review is placed on hold and the submitter has 180 calendar days to respond; otherwise the submission is considered withdrawn. Since October 1, 2023, all 510(k) submissions must be submitted electronically using the eSTAR (electronic Submission Template And Resource) template, unless exempted. A user fee is payable for each 510(k), with reduced fees for qualifying small businesses."
+        },
+        {
+          "rank": 3,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "Third Party Review",
+          "score": 0.744,
+          "text": "FDA's 510(k) Third Party Review Program allows accredited review organizations to review certain eligible 510(k)s and make a recommendation to FDA, which may shorten review time."
+        },
+        {
+          "rank": 4,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "When a New 510(k) Is Required for a Change",
+          "score": 0.588,
+          "text": "Under 21 CFR 807.81(a)(3), a new 510(k) is required when a change or modification to a cleared device could significantly affect its safety or effectiveness (for example, a change in design, material, chemical composition, energy source, or manufacturing process), or when there is a major change or modification in the intended use. FDA's guidance \"Deciding When to Submit a 510(k) for a Change to an Existing Device\" (2017) and the companion guidance for software changes provide decision flowcharts. Changes that do not require a new 510(k) must still be documented under design controls. A Predetermined Change Control Plan (PCCP) authorized in a marketing submission can allow specified future modifications without a new submission."
+        },
+        {
+          "rank": 5,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "Purpose and Legal Basis",
+          "score": 0.582,
+          "text": "A 510(k) is a premarket submission made to FDA to demonstrate that a device to be marketed is at least as safe and effective as, that is, substantially equivalent (SE) to, a legally marketed device (the \"predicate\") that is not subject to PMA. Requirements are in section 510(k) of the FD&C Act and 21 CFR Part 807 Subpart E. A 510(k) must be submitted at least 90 days before introducing the device into commercial distribution, and the device may not be marketed until the manufacturer receives an order from FDA declaring it substantially equivalent (\"510(k) clearance\")."
+        }
+      ],
+      "rag": {
+        "answer": "A **Special 510(k)** is used only for changes to the manufacturer’s own cleared device when the evaluation method is well‑established and can be summarized in a risk analysis; the FDA’s goal is to complete its review within **30 days**.  \n\nA **Traditional 510(k)** is the standard, all‑purpose pathway for any new device or change not covered by the special or abbreviated routes; under the MDUFA performance goals the FDA aims to make a decision within **90 FDA days** (the clock pauses while the submitter answers any questions)[1][2].",
+        "latency_s": 0.88,
+        "total_tokens": 1095,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate accurately reflects the reference answer regarding the definitions, specific use cases, and FDA review goals (30 days for Special, 90 FDA days for Traditional) for both 510(k) types."
+        }
+      },
+      "baseline": {
+        "answer": "**Special 510(k) vs. Traditional 510(k)**  \n\n| Feature | Special 510(k) | Traditional 510(k) |\n|---------|----------------|--------------------|\n| **When used** | Device is **substantially equivalent** to a **predicate already cleared** and the change is limited to **design, labeling, or manufacturing** (e.g., size, material, software version). | Any other submission where the device is **not covered** by the Special pathway (new device, new intended use, or major design change). |\n| **Content requirements** | • Only **comparative data** showing that the new device is **identical** to the predicate except for the specific change.<br>• No need for full **design history file (DHF)**, **risk analysis**, or **performance testing** beyond what was already submitted for the predicate. | • Full 510(k) dossier: **Device Description, Intended Use, Substantial Equivalence discussion, Performance Testing (bench, animal, clinical as needed),** **Risk Management (ISO 14971),** **Software Documentation (IEC 62304)**, **Biocompatibility (ISO 10993)**, etc. |\n| **Regulatory reference** | 21 CFR 807.92(b)(3) – “Special 510(k)”. | 21 CFR 807.92(a) – “Traditional 510(k)”. |\n| **Review time goal** | **90 calendar days** from receipt (FDA’s “Special 510(k) Review Goal”). | **90 calendar days** for **standard** 510(k) (FDA’s “90‑day review goal”), but historically the median is **120‑180 days** due to additional data. |\n| **FDA review focus** | Verify that the **only difference** is the one claimed and that it does not affect safety/effectiveness. | Evaluate **substantial equivalence** across all aspects, including new testing data, risk analysis, labeling, and compliance with applicable consensus standards. |\n| **Typical outcome** | **Clearance** if the change is truly limited; often **no additional post‑market study** required. | Clearance after full review; may require **post‑market surveillance** or **PMCF** if new risks are identified. |\n\n**Key FDA goals**  \n\n* **Special 510(k):** Confirm that the limited change does not introduce new safety or effectiveness concerns; maintain the predicate’s risk profile.  \n* **Traditional 510(k):** Demonstrate overall **substantial equivalence** to a legally marketed device, ensuring that the new device’s **risk/benefit** profile is at least as favorable as the predicate.",
+        "latency_s": 1.51,
+        "total_tokens": 776,
+        "key_fact_recall": 0.333,
+        "key_facts_found": [
+          false,
+          false,
+          true
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 2,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate incorrectly states the review goal for a Special 510(k) is 90 calendar days (reference says 30 days) and incorrectly claims Traditional 510(k) is for 'any other submission' rather than 'any situation', while also inventing specific CFR citations and content requirements not present in the reference."
+        }
+      }
+    },
+    {
+      "id": "Q02",
+      "category": "public-regulatory",
+      "question": "Within how many days must a manufacturer submit 30-day and 5-day Medical Device Reports to FDA, and what triggers a 5-day report?",
+      "reference_answer": "Under 21 CFR 803, 30-day reports are due within 30 calendar days of becoming aware of a death, serious injury or reportable malfunction. 5-day reports are due within 5 work days when the event necessitates remedial action to prevent an unreasonable risk of substantial harm to public health, or when FDA requests 5-day reports in writing.",
+      "source_docs": [
+        "08_fda_postmarket_mdr_recalls"
+      ],
+      "retrieved_docs": [
+        "08_fda_postmarket_mdr_recalls",
+        "14_veridian_sop_qa014_complaint_handling",
+        "08_fda_postmarket_mdr_recalls",
+        "08_fda_postmarket_mdr_recalls",
+        "08_fda_postmarket_mdr_recalls"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "08_fda_postmarket_mdr_recalls",
+          "title": "FDA Postmarket Requirements: Medical Device Reporting, Corrections and Recalls",
+          "section": "Manufacturer Reporting Timelines",
+          "score": 1.0,
+          "text": "- 30-calendar-day reports: a manufacturer must report within 30 calendar days of becoming aware of information that reasonably suggests a marketed device may have caused or contributed to a death or serious injury, or has malfunctioned and the device or a similar device would be likely to cause or contribute to a death or serious injury if the malfunction were to recur. - 5-work-day reports: a manufacturer must report within 5 work days of becoming aware that a reportable event necessitates remedial action to prevent an unreasonable risk of substantial harm to the public health, or when FDA has made a written request for 5-day reports. - Supplemental reports must be submitted within 30 calendar days of receiving new information not available at the time of the original report."
+        },
+        {
+          "rank": 2,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Reportability Assessment",
+          "score": 0.867,
+          "text": "Regulatory Affairs completes the initial MDR and vigilance reportability assessment within 2 business days of complaint entry. Any complaint involving a death or serious injury must be escalated by telephone and email to the VP of Quality and the Head of Regulatory Affairs within 24 hours of intake. Internal target: reportable 30-day MDRs are submitted no later than calendar day 25 after the awareness date to provide margin before the 30-day regulatory deadline; 5-day reports and EU 2-day reports are submitted on the timelines required by regulation."
+        },
+        {
+          "rank": 3,
+          "doc_id": "08_fda_postmarket_mdr_recalls",
+          "title": "FDA Postmarket Requirements: Medical Device Reporting, Corrections and Recalls",
+          "section": "Importer and User Facility Reporting",
+          "score": 0.858,
+          "text": "Importers must report deaths and serious injuries to FDA and the manufacturer within 30 calendar days, and malfunctions to the manufacturer. Device user facilities (such as hospitals and nursing homes) must report device-related deaths to both FDA and the manufacturer within 10 work days, and serious injuries to the manufacturer (or to FDA if the manufacturer is unknown) within 10 work days. User facilities also submit an annual summary report to FDA."
+        },
+        {
+          "rank": 4,
+          "doc_id": "08_fda_postmarket_mdr_recalls",
+          "title": "FDA Postmarket Requirements: Medical Device Reporting, Corrections and Recalls",
+          "section": "Voluntary Malfunction Summary Reporting (VMSR)",
+          "score": 0.856,
+          "text": "Under the VMSR program, manufacturers of devices in eligible product codes may report certain malfunction events (not deaths or serious injuries) in quarterly summary form instead of as individual 30-day reports."
+        },
+        {
+          "rank": 5,
+          "doc_id": "08_fda_postmarket_mdr_recalls",
+          "title": "FDA Postmarket Requirements: Medical Device Reporting, Corrections and Recalls",
+          "section": "Manufacturer Reporting Timelines",
+          "score": 0.709,
+          "text": "- Supplemental reports must be submitted within 30 calendar days of receiving new information not available at the time of the original report. A \"serious injury\" is an injury or illness that is life-threatening, results in permanent impairment of a body function or permanent damage to a body structure, or necessitates medical or surgical intervention to preclude such permanent impairment or damage. A manufacturer \"becomes aware\" when any employee becomes aware of information that reasonably suggests a reportable event."
+        }
+      ],
+      "rag": {
+        "answer": "- **30‑day MDR** – The manufacturer must submit the report **within 30 calendar days of becoming aware** of information that reasonably suggests the device may have caused or contributed to a death, a serious injury, or a malfunction that could lead to death or serious injury if it recurs[1].  \n\n- **5‑day MDR** – The manufacturer must submit the report **within 5 work days of becoming aware** that the reportable event requires remedial action to prevent an unreasonable risk of substantial harm to public health, or when the FDA has issued a written request for a 5‑day report[1].  \n\nThus, the trigger for a 5‑day report is the need for immediate corrective action to avert substantial harm (or an FDA‑issued request).",
+        "latency_s": 1.09,
+        "total_tokens": 1095,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate accurately states the 30-day and 5-day submission deadlines and correctly identifies the triggers for 5-day reports (remedial action for substantial harm or FDA written request) in full agreement with the reference."
+        }
+      },
+      "baseline": {
+        "answer": "**Submission Timelines**\n\n| Report type | FDA deadline after event | Reference |\n|-------------|--------------------------|-----------|\n| **30‑day Medical Device Report (MDR)** | **Within 30 calendar days** of the manufacturer’s initial knowledge that the event may have caused or contributed to a death or serious injury, or that a malfunction could lead to death or serious injury. | 21 CFR 820.100(b)(1) |\n| **5‑day MDR (also called “5‑day report” or “initial report”)** | **Within 5 calendar days** of the same knowledge (death, serious injury, or a malfunction that could cause death/serious injury). | 21 CFR 820.100(b)(2) |\n\n**What triggers the 5‑day report?**  \nA 5‑day MDR is required when the manufacturer becomes aware of any of the following:\n\n1. **Death** of a patient, user, or other person caused by or possibly caused by the device.  \n2. **Serious injury** (as defined in 21 CFR 803.11) caused by or possibly caused by the device.  \n3. **Device malfunction** that **could** reasonably be expected to cause or contribute to a death or serious injury if the malfunction were to recur.  \n\nIf the event meets any of these criteria, the manufacturer must submit the initial 5‑day report (including a brief description, device identification, and patient outcome) within 5 days, then follow up with a more detailed 30‑day report (or a supplemental report) within the 30‑day window.",
+        "latency_s": 1.27,
+        "total_tokens": 548,
+        "key_fact_recall": 0.25,
+        "key_facts_found": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 2,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate incorrectly states that 5-day reports are due within 5 calendar days (reference says 5 work days) and incorrectly lists death/serious injury as triggers for the 5-day report (reference specifies remedial action to prevent unreasonable risk or FDA request), while also citing the wrong CFR section (820 instead of 803)."
+        }
+      }
+    },
+    {
+      "id": "Q03",
+      "category": "public-regulatory",
+      "question": "What are the three IEC 62304 software safety classes?",
+      "reference_answer": "Class A: no injury or damage to health is possible; Class B: non-serious injury is possible; Class C: death or serious injury is possible.",
+      "source_docs": [
+        "06_iec62304_medical_device_software"
+      ],
+      "retrieved_docs": [
+        "06_iec62304_medical_device_software",
+        "06_iec62304_medical_device_software",
+        "06_iec62304_medical_device_software",
+        "06_iec62304_medical_device_software",
+        "06_iec62304_medical_device_software"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "Software Safety Classification",
+          "score": 1.0,
+          "text": "Each software system is assigned a safety class based on the possible effects on the patient, operator or other people resulting from a hazard the software can contribute to:\n- Class A: no injury or damage to health is possible.\n- Class B: non-serious injury is possible.\n- Class C: death or serious injury is possible.\nAmendment 1 (2015) allows the manufacturer to consider risk control measures external to the software system (for example, a hardware watchdog) when determining the class. The safety class determines which process activities and documentation are required; for example, detailed design of software units is required for Class C, and software unit verification acceptance criteria are required for Classes B and C."
+        },
+        {
+          "rank": 2,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "Scope",
+          "score": 0.873,
+          "text": "IEC 62304:2006+A1:2015 defines life cycle requirements for the development and maintenance of medical device software, both software embedded in a device and software that is itself a medical device (Software as a Medical Device, SaMD). It is recognized by FDA as a consensus standard and harmonized in the EU. It assumes the manufacturer operates a quality management system (such as ISO 13485) and a risk management process according to ISO 14971."
+        },
+        {
+          "rank": 3,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "SOUP",
+          "score": 0.855,
+          "text": "SOUP (Software Of Unknown Provenance) is a software item already developed and generally available that was not developed for the purpose of being incorporated into the medical device, or previously developed software for which adequate records of the development processes are not available. Manufacturers must identify each SOUP item with its title, manufacturer and version, specify functional and performance requirements and the hardware and software it needs, and evaluate published anomaly lists for SOUP items for Class B and C software."
+        },
+        {
+          "rank": 4,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "Life Cycle Processes",
+          "score": 0.761,
+          "text": "The standard defines five processes: Software development (clause 5: planning, requirements analysis, architectural design, detailed design, unit implementation and verification, integration and integration testing, system testing, and release); Software maintenance (clause 6); Software risk management (clause 7), including analysis of software contributing to hazardous situations; Software configuration management (clause 8); and Software problem resolution (clause 9)."
+        },
+        {
+          "rank": 5,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "FDA Software Documentation Levels",
+          "score": 0.725,
+          "text": "FDA's guidance \"Content of Premarket Submissions for Device Software Functions\" (final, June 2023) replaced the 2005 \"Level of Concern\" approach with two documentation levels: Basic and Enhanced. Enhanced Documentation is required when a failure or flaw of the device software function could present a hazardous situation with a probable risk of death or serious injury, either before implementation of risk control measures, to a patient, user of the device, or others in the environment of use. Enhanced documentation includes, among other things, a software design specification and a complete list of software anomalies, in addition to the documentation elements provided at the Basic level."
+        }
+      ],
+      "rag": {
+        "answer": "The IEC 62304 standard defines three software safety classes:\n\n1. **Class A** – no injury or damage to health is possible.  \n2. **Class B** – non‑serious injury is possible.  \n3. **Class C** – death or serious injury is possible.  \n\nThese definitions are provided in the standard’s safety‑classification section[1].",
+        "latency_s": 1.32,
+        "total_tokens": 974,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately lists all three IEC 62304 software safety classes with definitions that perfectly match the reference answer."
+        }
+      },
+      "baseline": {
+        "answer": "IEC 62304 defines three software safety classes based on the potential impact of software failure on the patient or user:\n\n| Class | Definition (Clause 4.2) | Example Impact |\n|-------|--------------------------|----------------|\n| **Class A** | No injury or damage to health is possible. | Software that provides non‑critical data (e.g., display of historical logs). |\n| **Class B** | Possible injury or damage to health, but not serious injury. | Software that controls non‑critical device functions (e.g., alarm thresholds). |\n| **Class C** | May cause **serious injury** or death. | Software that directly controls life‑support or therapeutic functions (e.g., infusion pump dosing algorithm). |\n\nThese classes drive the required rigor of development processes, verification/validation activities, and risk‑management documentation throughout the software life‑cycle. (IEC 62304:2006/2015, Clause 4.2).",
+        "latency_s": 0.9,
+        "total_tokens": 387,
+        "key_fact_recall": 0.667,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies all three IEC 62304 safety classes with definitions that align perfectly with the reference answer, and the additional examples and context do not contradict the ground truth."
+        }
+      }
+    },
+    {
+      "id": "Q04",
+      "category": "public-regulatory",
+      "question": "In what order of priority must risk control options be applied under ISO 14971:2019?",
+      "reference_answer": "1) Inherent safety by design and manufacture; 2) protective measures in the medical device itself or in the manufacturing process; 3) information for safety and, where appropriate, training of users.",
+      "source_docs": [
+        "05_iso14971_risk_management"
+      ],
+      "retrieved_docs": [
+        "05_iso14971_risk_management",
+        "05_iso14971_risk_management",
+        "05_iso14971_risk_management",
+        "05_iso14971_risk_management",
+        "05_iso14971_risk_management"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "05_iso14971_risk_management",
+          "title": "ISO 14971:2019 – Application of Risk Management to Medical Devices",
+          "section": "Risk Control Option Analysis",
+          "score": 1.0,
+          "text": "ISO 14971 requires risk control options to be applied in the following priority order:\n1. Inherent safety by design and manufacture;\n2. Protective measures in the medical device itself or in the manufacturing process (for example, alarms, guards, or interlocks);\n3. Information for safety and, where appropriate, training of users (for example, warnings in the instructions for use).\nFor each risk control measure the manufacturer must verify implementation and effectiveness, and evaluate whether new hazards or hazardous situations are introduced."
+        },
+        {
+          "rank": 2,
+          "doc_id": "05_iso14971_risk_management",
+          "title": "ISO 14971:2019 – Application of Risk Management to Medical Devices",
+          "section": "Scope and Key Definitions",
+          "score": 0.659,
+          "text": "ISO 14971:2019 specifies a process for a manufacturer to identify hazards associated with medical devices (including in vitro diagnostic devices and software), estimate and evaluate the associated risks, control these risks, and monitor the effectiveness of the controls throughout the device life cycle. ISO/TR 24971:2020 provides guidance on its application. In the EU it is harmonized as EN ISO 14971:2019+A11:2021.\n- Harm: injury or damage to the health of people, or damage to property or the environment.\n- Hazard: a potential source of harm.\n- Hazardous situation: a circumstance in which people, property or the environment are exposed to one or more hazards.\n- Risk: the combination of the probability of occurrence of harm and the severity of that harm.\n- Residual risk: risk remaining after risk control measures have been implemented."
+        },
+        {
+          "rank": 3,
+          "doc_id": "05_iso14971_risk_management",
+          "title": "ISO 14971:2019 – Application of Risk Management to Medical Devices",
+          "section": "Benefit-Risk Analysis",
+          "score": 0.611,
+          "text": "If a residual risk is not judged acceptable using the criteria in the risk management plan and further risk control is not practicable, the manufacturer may gather and review data to determine whether the medical benefits of the intended use outweigh that residual risk. If the benefits do not outweigh the risk, the risk remains unacceptable. The 2019 edition also requires disclosure of significant residual risks to users."
+        },
+        {
+          "rank": 4,
+          "doc_id": "05_iso14971_risk_management",
+          "title": "ISO 14971:2019 – Application of Risk Management to Medical Devices",
+          "section": "Common Risk Analysis Techniques",
+          "score": 0.564,
+          "text": "Commonly used techniques include Preliminary Hazard Analysis (PHA), Failure Mode and Effects Analysis (FMEA, e.g., design FMEA and process FMEA), Fault Tree Analysis (FTA), Hazard and Operability Study (HAZOP) and Hazard Analysis and Critical Control Points (HACCP). Use-related risks are analyzed with a use-related risk analysis (URRA) according to IEC 62366-1, and security risks with approaches such as AAMI TIR57."
+        },
+        {
+          "rank": 5,
+          "doc_id": "05_iso14971_risk_management",
+          "title": "ISO 14971:2019 – Application of Risk Management to Medical Devices",
+          "section": "The Risk Management Process",
+          "score": 0.54,
+          "text": "The process (clauses 4–10) comprises: general requirements including a risk management plan, top management responsibilities, competence of personnel, and a risk management file (clause 4); risk analysis — intended use and reasonably foreseeable misuse, identification of characteristics related to safety, identification of hazards and hazardous situations, and risk estimation (clause 5); risk evaluation against the criteria for risk acceptability defined in the plan (clause 6); risk control (clause 7); evaluation of overall residual risk (clause 8); risk management review before commercial release, documented in a risk management report (clause 9); and production and post-production activities, i.e., collecting and reviewing information from production, post-market surveillance, and the state of the art (clause 10)."
+        }
+      ],
+      "rag": {
+        "answer": "The ISO 14971:2019 standard specifies that risk‑control options must be applied in the following priority order:\n\n1. **Inherent safety by design and manufacture**  \n2. **Protective measures in the device or its manufacturing process** (e.g., alarms, guards, interlocks)  \n3. **Information for safety and, where appropriate, user training** (e.g., warnings in the Instructions for Use)  \n\nThese three tiers are required to be implemented sequentially, with verification of implementation and effectiveness for each option. [1]",
+        "latency_s": 1.3,
+        "total_tokens": 1107,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately lists the three priority levels of risk control options as defined in the reference answer, with no contradictions or hallucinations."
+        }
+      },
+      "baseline": {
+        "answer": "**ISO 14971:2019 – Hierarchy of Risk‑Control Options (Clause 5.3)**  \n\n1. **Inherent safety by design** – Eliminate the hazard or the hazardous situation altogether (e.g., redesign, substitute a safer material).  \n2. **Protective measures in the device** – Apply engineering controls that reduce the probability or severity of harm (e.g., shielding, interlocks, alarms).  \n3. **Protective measures in the manufacturing/maintenance process** – Controls that limit risk during production, installation, or servicing (e.g., process controls, quality checks).  \n4. **Information for safety** – Provide warnings, instructions for use, training, or labeling that enable the user to avoid the risk.  \n5. **Residual risk acceptance** – After all feasible controls are applied, evaluate whether the remaining risk is acceptable per the risk‑acceptance criteria.\n\nThe standard states that **risk elimination** (inherent safety) is the most preferred option; each subsequent level is considered only when the higher‑level option is not practicable or sufficient. (ISO 14971:2019, Clause 5.3, Table 5‑1).",
+        "latency_s": 1.07,
+        "total_tokens": 468,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 4,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the three priority levels from the reference answer, although it splits the second level (protective measures in the device or manufacturing process) into two separate items and adds a fifth step (residual risk acceptance) which is a subsequent evaluation step rather than a risk control option in the hierarchy itself."
+        }
+      }
+    },
+    {
+      "id": "Q05",
+      "category": "public-regulatory",
+      "question": "Under EU MDR Article 87, what are the deadlines for reporting serious incidents to competent authorities?",
+      "reference_answer": "Immediately after establishing a causal relationship (or reasonable possibility) and not later than 15 days after awareness; for a serious public health threat not later than 2 days; for death or an unanticipated serious deterioration in health not later than 10 days.",
+      "source_docs": [
+        "07_eu_mdr_2017_745"
+      ],
+      "retrieved_docs": [
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745",
+        "14_veridian_sop_qa014_complaint_handling",
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Vigilance – Serious Incident Reporting (Article 87)",
+          "score": 1.0,
+          "text": "Manufacturers must report any serious incident involving their devices on the EU market to the relevant competent authority immediately after establishing a causal relationship (or that such a relationship is reasonably possible), and not later than 15 days after becoming aware of the incident. In the event of a serious public health threat the report must be provided immediately and not later than 2 days after awareness. In the event of death or an unanticipated serious deterioration in a person's state of health, the report must be provided immediately and not later than 10 days after awareness. Field Safety Corrective Actions (FSCAs) must be reported before they are undertaken (except in urgent cases) and communicated to users via a Field Safety Notice (FSN)."
+        },
+        {
+          "rank": 2,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Vigilance – Serious Incident Reporting (Article 87)",
+          "score": 0.96,
+          "text": "Actions (FSCAs) must be reported before they are undertaken (except in urgent cases) and communicated to users via a Field Safety Notice (FSN). Statistically significant increases in non-serious incidents or expected side-effects are subject to trend reporting (Article 88)."
+        },
+        {
+          "rank": 3,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Purpose and Scope",
+          "score": 0.592,
+          "text": "This procedure defines how Veridian MedTech receives, documents, evaluates, investigates and closes complaints for all marketed products, including the InfusePro 300 infusion pump, and how reportability to FDA (21 CFR Part 803) and EU competent authorities (MDR Article 87) is determined. It implements ISO 13485:2016 clause 8.2.2 and the FDA QMSR."
+        },
+        {
+          "rank": 4,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Overview",
+          "score": 0.585,
+          "text": "The EU Medical Device Regulation (EU) 2017/745 replaced the Medical Device Directive 93/42/EEC and the Active Implantable Medical Device Directive 90/385/EEC. It entered into force in May 2017 and has applied since 26 May 2021. Compared with the directives it strengthens requirements for clinical evidence, notified body oversight, post-market surveillance, traceability (UDI and the EUDAMED database), and transparency. Manufacturers must have at least one Person Responsible for Regulatory Compliance (PRRC) according to Article 15, and must affix the CE mark after completing the applicable conformity assessment procedure."
+        },
+        {
+          "rank": 5,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Post-Market Surveillance and Reporting",
+          "score": 0.579,
+          "text": "Manufacturers must plan and operate a post-market surveillance (PMS) system proportionate to the risk class (Articles 83–86). Class I manufacturers prepare a PMS report, updated when necessary. Class IIa, IIb and III manufacturers prepare a Periodic Safety Update Report (PSUR): for Class IIa devices updated when necessary and at least every two years; for Class IIb and Class III devices at least annually. For Class III and implantable devices, the PSUR is submitted via EUDAMED to the notified body for review. Post-Market Clinical Follow-up (PMCF) under Annex XIV Part B is used to proactively collect clinical data. For implantable devices and Class III devices, a Summary of Safety and Clinical Performance (SSCP) must be published (Article 32)."
+        }
+      ],
+      "rag": {
+        "answer": "Under EU MDR Article 87 the manufacturer must notify the competent authority of a serious incident:\n\n* **General serious incident** – no later than **15 days** after becoming aware of the incident (once a causal relationship is established or reasonably possible)[1].  \n* **Serious public‑health threat** – **immediately** and in any case **no later than 2 days** after awareness[1].  \n* **Death or an unanticipated serious deterioration in a person’s health** – **immediately** and in any case **no later than 10 days** after awareness[1].",
+        "latency_s": 0.88,
+        "total_tokens": 1137,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately reflects all specific deadlines and conditions outlined in the reference answer for general incidents, public health threats, and death/serious deterioration."
+        }
+      },
+      "baseline": {
+        "answer": "**EU MDR – Article 87 (Reporting of serious incidents and field‑safety corrective actions)**  \n\n| Event type | Deadline for initial report to the Competent Authority* | Reference (MDR) |\n|------------|----------------------------------------------------------|-----------------|\n| **Serious incident** (any incident that could have led to death or serious deterioration of health, or that actually did) | **Within 15 calendar days** after the manufacturer becomes aware of the incident. | Article 87(1) – “within 15 days” |\n| **Field‑safety corrective action (FSCA)** (including recalls, safety notices, or any action taken to reduce risk) | **Within 30 calendar days** after the manufacturer becomes aware of the need for the action. | Article 87(2) – “within 30 days” |\n\n\\*The clock starts on the day the manufacturer **first becomes aware** of the incident or the need for the corrective action (i.e., when the information is available to the responsible person).  \n\nAdditional notes  \n\n* A **follow‑up report** must be submitted within 90 days if the final outcome is not yet known (Article 87(3)).  \n* If the incident is classified as a **“serious incident with a fatal outcome”**, the 15‑day deadline still applies, but the report must include all available details of the fatality.  \n* Reports are made to the **competent authority of the Member State where the incident occurred** (or the “reference” Member State for the device).  \n\nThese timelines are mandatory; failure to meet them can result in enforcement actions under Articles 100–102 MDR.",
+        "latency_s": 1.35,
+        "total_tokens": 607,
+        "key_fact_recall": 0.333,
+        "key_facts_found": [
+          true,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 1,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate fails to mention the specific 2-day and 10-day deadlines for serious public health threats and death/unanticipated serious deterioration, and incorrectly states that the 15-day deadline applies to fatal outcomes (contradicting the 10-day rule in the reference)."
+        }
+      }
+    },
+    {
+      "id": "Q06",
+      "category": "public-regulatory",
+      "question": "When did FDA's Quality Management System Regulation (QMSR) take effect, and which standard does it incorporate by reference?",
+      "reference_answer": "The QMSR (amended 21 CFR Part 820, final rule published February 2, 2024) became effective on February 2, 2026 and incorporates ISO 13485:2016 by reference.",
+      "source_docs": [
+        "04_qmsr_iso13485_design_controls"
+      ],
+      "retrieved_docs": [
+        "04_qmsr_iso13485_design_controls",
+        "04_qmsr_iso13485_design_controls",
+        "04_qmsr_iso13485_design_controls",
+        "04_qmsr_iso13485_design_controls",
+        "04_qmsr_iso13485_design_controls"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "04_qmsr_iso13485_design_controls",
+          "title": "Quality Management Systems: FDA QMSR and ISO 13485",
+          "section": "The Quality Management System Regulation (QMSR)",
+          "score": 1.0,
+          "text": "FDA's device quality system requirements are found in 21 CFR Part 820. On February 2, 2024 FDA published a final rule amending Part 820 to become the Quality Management System Regulation (QMSR), which incorporates by reference the international standard ISO 13485:2016, \"Medical devices – Quality management systems – Requirements for regulatory purposes\". The QMSR became effective on February 2, 2026, replacing the former Quality System Regulation (QSR) that had been in place since 1996. The QMSR includes supplemental provisions where FDA retained or clarified requirements, for example control of records (820.35), which addresses complaint and servicing records and Unique Device Identifier (UDI) information, and controls for labeling and packaging (820.45)."
+        },
+        {
+          "rank": 2,
+          "doc_id": "04_qmsr_iso13485_design_controls",
+          "title": "Quality Management Systems: FDA QMSR and ISO 13485",
+          "section": "The Quality Management System Regulation (QMSR)",
+          "score": 0.771,
+          "text": "which addresses complaint and servicing records and Unique Device Identifier (UDI) information, and controls for labeling and packaging (820.45). With the QMSR, FDA stated it would no longer use the Quality System Inspection Technique (QSIT) and adopted an updated inspection approach aligned with ISO 13485."
+        },
+        {
+          "rank": 3,
+          "doc_id": "04_qmsr_iso13485_design_controls",
+          "title": "Quality Management Systems: FDA QMSR and ISO 13485",
+          "section": "Structure of ISO 13485:2016",
+          "score": 0.591,
+          "text": "ISO 13485:2016 is organized into clauses: 4 Quality management system (including documentation, the medical device file and control of records); 5 Management responsibility (quality policy, objectives, management review); 6 Resource management (personnel competence, infrastructure, work environment); 7 Product realization (planning, customer-related processes, design and development, purchasing, production and service provision); and 8 Measurement, analysis and improvement (feedback, complaint handling, reporting to regulatory authorities, internal audit, control of nonconforming product, analysis of data, corrective action and preventive action). Risk-based approaches are applied throughout the QMS, and records must generally be retained for at least the lifetime of the device as defined by the manufacturer, but not less than two years from release."
+        },
+        {
+          "rank": 4,
+          "doc_id": "04_qmsr_iso13485_design_controls",
+          "title": "Quality Management Systems: FDA QMSR and ISO 13485",
+          "section": "Complaint Handling",
+          "score": 0.568,
+          "text": "ISO 13485 clause 8.2.2 requires documented procedures for timely complaint handling, including receiving and recording information, evaluating whether the feedback is a complaint, investigating complaints, determining the need to report to regulatory authorities, handling of related product, and determining the need to initiate corrections or corrective actions. If a complaint is not investigated, the justification must be documented."
+        },
+        {
+          "rank": 5,
+          "doc_id": "04_qmsr_iso13485_design_controls",
+          "title": "Quality Management Systems: FDA QMSR and ISO 13485",
+          "section": "Corrective and Preventive Action (CAPA)",
+          "score": 0.525,
+          "text": "Corrective action (ISO 13485 clause 8.5.2) eliminates the cause of existing nonconformities to prevent recurrence; preventive action (8.5.3) eliminates the cause of potential nonconformities. The documented procedure must cover reviewing nonconformities including complaints, determining causes, evaluating the need for action, planning and documenting action, verifying that the action does not adversely affect the ability to meet regulatory requirements or the safety and performance of the device, and reviewing the effectiveness of the action taken. CAPA inputs include complaints, nonconforming product, internal and external audits, service records, process monitoring and trend data."
+        }
+      ],
+      "rag": {
+        "answer": "The FDA’s Quality Management System Regulation (QMSR) became effective on **February 2 2026** and it incorporates by reference **ISO 13485:2016, “Medical devices – Quality management systems – Requirements for regulatory purposes.”**[1]",
+        "latency_s": 0.5,
+        "total_tokens": 1039,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the effective date (February 2, 2026) and the incorporated standard (ISO 13485:2016), matching all key facts in the reference answer."
+        }
+      },
+      "baseline": {
+        "answer": "**Effective date:** The FDA’s Quality Management System Regulation (QMSR) – 21 CFR 820 – became effective **May 28 1996** (with a 6‑month compliance grace period ending Nov 28 1996).\n\n**Standard incorporated by reference:** 21 CFR 820 § 820.30(b) incorporates **ISO 13485:2016** (the current edition) by reference for the design‑control sub‑part of the regulation. Earlier versions of the regulation referenced ISO 13485:2003, but the latest amendment (effective May 2022) updates the reference to the 2016 edition.",
+        "latency_s": 0.74,
+        "total_tokens": 344,
+        "key_fact_recall": 0.5,
+        "key_facts_found": [
+          false,
+          true
+        ],
+        "judge": {
+          "correctness": 1,
+          "completeness": 1,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate provides the incorrect effective date (1996 instead of 2026) and incorrectly claims the standard is only incorporated for design controls, contradicting the reference which states the QMSR became effective on February 2, 2026."
+        }
+      }
+    },
+    {
+      "id": "Q07",
+      "category": "public-regulatory",
+      "question": "What must a premarket submission for a cyber device include under section 524B of the FD&C Act?",
+      "reference_answer": "A plan to monitor, identify and address postmarket vulnerabilities and exploits including coordinated vulnerability disclosure; processes providing reasonable assurance the device is cybersecure with postmarket updates and patches (regular cycle and out-of-cycle for critical vulnerabilities); and a Software Bill of Materials covering commercial, open-source and off-the-shelf components.",
+      "source_docs": [
+        "10_medical_device_cybersecurity"
+      ],
+      "retrieved_docs": [
+        "10_medical_device_cybersecurity",
+        "10_medical_device_cybersecurity",
+        "10_medical_device_cybersecurity",
+        "10_medical_device_cybersecurity",
+        "02_fda_510k_premarket_notification"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "10_medical_device_cybersecurity",
+          "title": "Medical Device Cybersecurity",
+          "section": "Section 524B of the FD&C Act",
+          "score": 1.0,
+          "text": "The Consolidated Appropriations Act, 2023 (signed December 29, 2022) added section 524B, \"Ensuring Cybersecurity of Devices\", to the FD&C Act, effective March 29, 2023. It applies to a \"cyber device\", meaning a device that (1) includes software validated, installed or authorized by the sponsor as a device or in a device; (2) has the ability to connect to the internet; and (3) contains any technological characteristics validated, installed or authorized by the sponsor that could be vulnerable to cybersecurity threats."
+        },
+        {
+          "rank": 2,
+          "doc_id": "10_medical_device_cybersecurity",
+          "title": "Medical Device Cybersecurity",
+          "section": "Required Content of Premarket Submissions",
+          "score": 0.611,
+          "text": "cause uncontrolled risks; 3. Provide a Software Bill of Materials (SBOM), including commercial, open-source and off-the-shelf software components; 4. Comply with other requirements FDA may establish by regulation. FDA began refusing to accept (RTA) premarket submissions for cyber devices lacking this information on October 1, 2023."
+        },
+        {
+          "rank": 3,
+          "doc_id": "10_medical_device_cybersecurity",
+          "title": "Medical Device Cybersecurity",
+          "section": "FDA Premarket Cybersecurity Guidance",
+          "score": 0.595,
+          "text": "FDA's guidance \"Cybersecurity in Medical Devices: Quality System Considerations and Content of Premarket Submissions\" was finalized in September 2023 and updated in June 2025 to address section 524B. It recommends a Secure Product Development Framework (SPDF), threat modeling, a cybersecurity risk assessment separate from but linked to the ISO 14971 safety risk assessment (exploitability rather than probability is assessed), security architecture views, cybersecurity testing (including penetration testing, fuzz testing and vulnerability scanning), unresolved anomaly assessment, and labeling describing security controls and the device's end-of-support date. Relevant standards and reports include AAMI TIR57 (security risk management), ANSI/AAMI SW96 and IEC 81001-5-1 (security activities in the product life cycle)."
+        },
+        {
+          "rank": 4,
+          "doc_id": "10_medical_device_cybersecurity",
+          "title": "Medical Device Cybersecurity",
+          "section": "Required Content of Premarket Submissions",
+          "score": 0.573,
+          "text": "Sponsors of a premarket submission (510(k), PMA, De Novo, PDP or HDE) for a cyber device must: 1. Submit a plan to monitor, identify and address, as appropriate, in a reasonable time, postmarket cybersecurity vulnerabilities and exploits, including coordinated vulnerability disclosure and related procedures; 2. Design, develop and maintain processes and procedures to provide a reasonable assurance that the device and related systems are cybersecure, and make available postmarket updates and patches to the device and related systems — on a reasonably justified regular cycle for known unacceptable vulnerabilities, and as soon as possible out of cycle for critical vulnerabilities that could cause uncontrolled risks; 3. Provide a Software Bill of Materials (SBOM), including commercial, open-source and off-the-shelf software components; 4."
+        },
+        {
+          "rank": 5,
+          "doc_id": "02_fda_510k_premarket_notification",
+          "title": "FDA 510(k) Premarket Notification",
+          "section": "Purpose and Legal Basis",
+          "score": 0.49,
+          "text": "A 510(k) is a premarket submission made to FDA to demonstrate that a device to be marketed is at least as safe and effective as, that is, substantially equivalent (SE) to, a legally marketed device (the \"predicate\") that is not subject to PMA. Requirements are in section 510(k) of the FD&C Act and 21 CFR Part 807 Subpart E. A 510(k) must be submitted at least 90 days before introducing the device into commercial distribution, and the device may not be marketed until the manufacturer receives an order from FDA declaring it substantially equivalent (\"510(k) clearance\")."
+        }
+      ],
+      "rag": {
+        "answer": "A pre‑market submission for a “cyber device” must contain the following elements required by section 524B:\n\n1. **A post‑market cybersecurity management plan** – a documented process to monitor, identify, and address vulnerabilities and exploits in a reasonable time, including coordinated vulnerability disclosure procedures[4].  \n2. **Evidence of a cyber‑secure development and maintenance program** – processes that assure the device and its related systems are cyber‑secure, with a schedule for regular updates/patches for known unacceptable vulnerabilities and out‑of‑cycle patches for critical vulnerabilities that could cause uncontrolled risks[4].  \n3. **A Software Bill of Materials (SBOM)** – listing all commercial, open‑source, and off‑the‑shelf software components used in the device[2][4].  \n4. **Cybersecurity risk assessment** – a risk assessment separate from the ISO 14971 safety assessment that evaluates exploitability (not probability) and links to the overall risk management file[3].  \n5. **Security architecture documentation, testing results, and labeling** – including threat modeling, penetration/fuzz testing, vulnerability scanning, unresolved anomaly assessment, and labeling that describes security controls and the device’s end‑of‑support date[3].  \n\nFDA began refusing to accept pre‑market submissions that omit this information as of **October 1, 2023**[2].",
+        "latency_s": 1.05,
+        "total_tokens": 1312,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 4,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies all three key components required by the reference (postmarket plan, cybersecure processes, and SBOM) and adds additional details (risk assessment, architecture docs, dates) that are consistent with FDA regulations but not explicitly in the reference; since the reference is treated as the ground truth for the specific question, the extra details are not contradictions but rather supplementary context, so no hallucination is flagged, though strict adherence to the reference would suggest a perfect 5 for correctness if the extra details are considered 'invented' relative to the provided text, however, in regulatory contexts, these are standard requirements, so 4 is a safe score for 'mostly correct' while acknowledging the extra info, or 5 if we assume the reference is a summary. Given the instruction 'treat it as correct', the candidate's extra points are not contradictions. Let's look closer: The reference lists 3 items. The candidate lists 5. Items 1, 2, and 3 match the reference perfectly. Items 4 and 5 are extra. Are they hallucinations? They are specific facts. If they are not in the reference, are they 'invented'? The prompt says 'hallucination: true if the candidate asserts specific facts... that contradict the reference or are invented.' Since the reference is the 'ground truth from the organisation's document collection', any fact not in it might be considered 'invented' in the context of this strict grading task if the reference is exhaustive. However, usually, 'invented' means false. If the extra facts are true in the real world but not in the reference, is it a hallucination? The prompt says 'treat it as correct even if it describes a fictional company'. It doesn't say the reference is the *only* truth, but it is the ground truth for the question. If the question asks 'What must... include', and the reference lists A, B, C, and the candidate lists A, B, C, D, E, the candidate is more complete. If D and E are not in the reference, are they wrong? In a strict QA setting based *only* on the provided reference, extra information is often penalized or considered hallucination if it's not supported by the source text. However, the definition of hallucination here is 'contradict the reference or are invented'. If D and E are true facts about FDA 524B, they are not 'invented' in the sense of being false. But if the grader only has the reference, it cannot verify D and E. Let's look at the 'correctness' score. 5 = all stated facts agree with the reference. The candidate states facts 4 and 5. Do they agree with the reference? The reference doesn't mention them. So they don't 'agree' in the sense of being present. But they don't contradict. Usually, 'agree' means 'are consistent with'. If the reference is a subset, the candidate is consistent. However, if the reference is the *complete* answer, then adding extra items might be seen as incorrect if those items are not actually required by 524B specifically (though they are part of the broader cybersecurity guidance). Actually, Section 524B specifically mandates the plan, the processes, and the SBOM. The risk assessment and architecture docs are part of the *processes* or the *plan* but not separate statutory requirements in the same list. The candidate separates them. This might be a slight over-specification. But is it a hallucination? No, because they are real requirements. Is it a correctness issue? The core answer is correct. I will give 5 for completeness because it covers all reference points. For correctness, since the extra points are factually true in the real world (FDA guidance), and the prompt says 'treat it as correct' regarding the reference, it implies the reference is the standard. If the candidate adds true info, it's usually not penalized heavily unless it contradicts. I will stick with 4 or 5. Let's look at the hallucination definition again: 'invented'. If the model made up the date 'October 1, 2023', that is a specific fact. Is it in the reference? No. Is it true? Yes, FDA started enforcing this around then. But if the reference doesn't have it, a strict grader relying *only* on the reference might flag it as unsupported. However, 'invented' usually implies falsehood. I will assume the candidate is factually accurate. The main risk is that the candidate lists items 4 and 5 as distinct requirements of 524B, whereas 524B textually requires the plan, processes, and SBOM. The risk assessment is part of the processes. So listing it as a separate top-level requirement is a slight structural inaccuracy but not a factual error. I will rate correctness 4 to be safe, acknowledging the extra details not in the reference. Actually, looking at the reference, it is a summary. The candidate is a detailed expansion. I will give 5 for completeness. For correctness, 4 is appropriate because it includes details not in the reference which a strict grader might view as 'not agreeing' with the provided ground truth text. Wait, 'all stated facts agree with the reference'. If the reference says 'A, B, C' and the candidate says 'A, B, C, D, E', do the facts D and E agree with the reference? The reference is silent on D and E. Silence is not agreement. Therefore, strictly speaking, they do not agree with the reference (which is the ground truth). So correctness should be lower. 3 or 4. Let's go with 4. Hallucination: False, because they are not false, just extra. Abstained: False."
+        }
+      },
+      "baseline": {
+        "answer": "**Section 524(b) FD&C Act – Premarket Submission for a “Cyber‑Device” (software‑only or software‑driven medical device)**  \n\nA 510(k) or De Novo submission that is classified as a “cyber‑device” must contain, in addition to the standard content required by 21 CFR 807.92, the following items specifically called out in § 524(b) (effective 2024‑05‑01):\n\n| Item | What to Include | Clause Reference |\n|------|----------------|-------------------|\n| **1. Device Description** | Full description of hardware, software, and any network interfaces; architecture diagram showing data flow, communication protocols, and cloud components. | § 524(b)(1) |\n| **2. Cyber‑Security Risk Management** | Risk analysis per **ISO 14971** plus a dedicated **cyber‑risk** assessment (threat modeling, attack surface, vulnerability analysis). Include risk control measures (encryption, authentication, patch management). | § 524(b)(2) |\n| **3. Software Development Lifecycle (SDLC)** | Evidence of compliance with **IEC 62304** (development plan, verification/validation reports, configuration management). | § 524(b)(3) |\n| **4. Usability & Human‑Factors** | Usability engineering file per **IEC 62366‑1** (use‑case scenarios, user interface mock‑ups, validation results). | § 524(b)(4) |\n| **5. Biocompatibility (if applicable)** | ISO 10993 data for any patient‑contacting hardware components. | § 524(b)(5) |\n| **6. Post‑Market Cyber‑Monitoring Plan** | Detailed plan for continuous security monitoring, incident response, and periodic vulnerability assessments (minimum quarterly). | § 524(b)(6) |\n| **7. Labeling & Instructions for Use** | Include security‑related labeling (e.g., required password policies, update procedures). | § 524(b)(7) |\n| **8. Software Bill of Materials (SBOM)** | Complete list of third‑party libraries, versions, and known CVEs at submission time. | § 524(b)(8) |\n| **9. Validation of Remote Updates** | Evidence that OTA (over‑the‑air) update mechanisms are validated for integrity, authenticity, and rollback safety. | § 524(b)(9) |\n| **10. FDA‑Recognized Standards Cross‑Reference** | Table mapping each requirement to the applicable FDA guidance (e.g., “Content of Premarket Submissions for Software‑Based Medical Devices” guidance, 2023). | § 524(b)(10) |\n\n**Timing:** All above documentation must be submitted with the initial filing; any post‑submission changes (e.g., new vulnerabilities) must be reported within **15 calendar days** per 21 CFR 820.30(c).  \n\nIf any of these elements are missing, the FDA will issue a **Deficiency Letter** and may place the submission on **“Hold”** until resolved.",
+        "latency_s": 1.78,
+        "total_tokens": 845,
+        "key_fact_recall": 0.75,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          false
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 2,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate invents specific clause numbers, dates, and requirements (e.g., ISO 14971, IEC 62304, 15-day reporting) that are not in the reference and fails to mention the specific requirement for coordinated vulnerability disclosure and the distinction between regular and out-of-cycle updates."
+        }
+      }
+    },
+    {
+      "id": "Q08",
+      "category": "public-regulatory",
+      "question": "What is the minimum number of participants FDA recommends for each distinct user group in human factors validation testing?",
+      "reference_answer": "FDA recommends a minimum of 15 participants from each distinct user group.",
+      "source_docs": [
+        "12_human_factors_usability"
+      ],
+      "retrieved_docs": [
+        "12_human_factors_usability",
+        "12_human_factors_usability",
+        "12_human_factors_usability",
+        "09_unique_device_identification",
+        "10_medical_device_cybersecurity"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "12_human_factors_usability",
+          "title": "Human Factors and Usability Engineering",
+          "section": "Formative and Summative Evaluation",
+          "score": 1.0,
+          "text": "Formative evaluations are conducted iteratively during design to identify user interface strengths, weaknesses and unanticipated use errors. Summative evaluation, called human factors validation testing by FDA, is performed on the final (production-equivalent) user interface with representative users performing critical tasks in a simulated or actual use environment, to demonstrate the device can be used safely and effectively. FDA recommends that human factors validation testing include a minimum of 15 participants from each distinct user group. Results include analysis of use errors, close calls and difficulties, with root-cause analysis informed by participant interviews."
+        },
+        {
+          "rank": 2,
+          "doc_id": "12_human_factors_usability",
+          "title": "Human Factors and Usability Engineering",
+          "section": "Standards and Guidance",
+          "score": 0.54,
+          "text": "IEC 62366-1:2015+A1:2020 specifies a usability engineering process for manufacturers to analyze, specify, develop and evaluate the usability of a medical device as it relates to safety. FDA's guidance \"Applying Human Factors and Usability Engineering to Medical Devices\" (February 2016) describes FDA's expectations, and FDA has issued draft guidance on the content of human factors information in marketing submissions."
+        },
+        {
+          "rank": 3,
+          "doc_id": "12_human_factors_usability",
+          "title": "Human Factors and Usability Engineering",
+          "section": "Key Concepts",
+          "score": 0.505,
+          "text": "- Use error: a user action or lack of action that leads to a different result than intended by the manufacturer or expected by the user.\n- Critical task: a user task which, if performed incorrectly or not performed at all, would or could cause serious harm to the patient or user, where harm is defined to include compromised medical care.\n- Use specification: summary of intended medical indication, patient population, intended users, use environment and operating principle.\n- Use-related risk analysis (URRA): identifies tasks, potential use errors, resulting harms and their severity, and risk control measures."
+        },
+        {
+          "rank": 4,
+          "doc_id": "09_unique_device_identification",
+          "title": "Unique Device Identification (UDI)",
+          "section": "Structure of a UDI",
+          "score": 0.247,
+          "text": "A UDI is a unique numeric or alphanumeric code with two parts:\n- Device Identifier (DI): a mandatory, fixed portion that identifies the labeler and the specific version or model of the device.\n- Production Identifier (PI): a conditional, variable portion that identifies one or more of the following when included on the label: the lot or batch number, the serial number, the expiration date, the date of manufacture, and, for HCT/Ps regulated as devices, the distinct identification code.\nThe UDI must be presented in both a plain-text (human-readable) form and a form using automatic identification and data capture (AIDC) technology, such as a linear barcode, 2D barcode (e.g., Data Matrix) or RFID."
+        },
+        {
+          "rank": 5,
+          "doc_id": "10_medical_device_cybersecurity",
+          "title": "Medical Device Cybersecurity",
+          "section": "FDA Premarket Cybersecurity Guidance",
+          "score": 0.154,
+          "text": "FDA's guidance \"Cybersecurity in Medical Devices: Quality System Considerations and Content of Premarket Submissions\" was finalized in September 2023 and updated in June 2025 to address section 524B. It recommends a Secure Product Development Framework (SPDF), threat modeling, a cybersecurity risk assessment separate from but linked to the ISO 14971 safety risk assessment (exploitability rather than probability is assessed), security architecture views, cybersecurity testing (including penetration testing, fuzz testing and vulnerability scanning), unresolved anomaly assessment, and labeling describing security controls and the device's end-of-support date. Relevant standards and reports include AAMI TIR57 (security risk management), ANSI/AAMI SW96 and IEC 81001-5-1 (security activities in the product life cycle)."
+        }
+      ],
+      "rag": {
+        "answer": "FDA recommends a minimum of **15 participants** from each distinct user group for human‑factors validation testing[1].",
+        "latency_s": 1.23,
+        "total_tokens": 1002,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer correctly identifies the minimum number of participants (15) as stated in the reference answer."
+        }
+      },
+      "baseline": {
+        "answer": "**FDA Human‑Factors Validation (Usability) Guidance (2016, “Applying Human Factors and Usability Engineering to Medical Devices”)**  \n\n- **Minimum sample size:** **≥ 15 participants** for each distinct user group (e.g., patients, caregivers, clinicians, technicians).  \n- **Rationale:** This number provides sufficient statistical power to detect use‑related hazards that could lead to use errors, while remaining practical for most device programs.  \n\n*Reference:* FDA Guidance for Industry and FDA Staff, **Human Factors and Usability Engineering – Applying Human Factors and Usability Engineering to Medical Devices**, § 4.2 (Validation testing), 21 CFR 820.30(b).",
+        "latency_s": 0.72,
+        "total_tokens": 384,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the minimum number of participants (15) as stated in the reference, and the additional context provided does not contradict the ground truth."
+        }
+      }
+    },
+    {
+      "id": "Q09",
+      "category": "public-regulatory",
+      "question": "How are the contact duration categories defined in ISO 10993-1?",
+      "reference_answer": "Limited exposure (A): 24 hours or less; prolonged exposure (B): more than 24 hours up to 30 days; long-term exposure (C): more than 30 days (cumulative contact).",
+      "source_docs": [
+        "11_biocompatibility_iso10993"
+      ],
+      "retrieved_docs": [
+        "11_biocompatibility_iso10993",
+        "11_biocompatibility_iso10993",
+        "11_biocompatibility_iso10993",
+        "11_biocompatibility_iso10993",
+        "06_iec62304_medical_device_software"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "11_biocompatibility_iso10993",
+          "title": "Biocompatibility Evaluation – ISO 10993-1",
+          "section": "Biological Endpoints",
+          "score": 1.0,
+          "text": "Endpoints to consider depend on contact category and duration. Cytotoxicity (ISO 10993-5), sensitization (ISO 10993-10) and irritation (ISO 10993-23), sometimes called the \"big three\", are relevant to almost all patient-contacting devices. Other endpoints include acute systemic toxicity and subacute/subchronic/chronic toxicity (ISO 10993-11), material-mediated pyrogenicity, genotoxicity (ISO 10993-3), implantation (ISO 10993-6), hemocompatibility (ISO 10993-4) for blood-contacting devices, and carcinogenicity. Chemical characterization (ISO 10993-18) combined with toxicological risk assessment (ISO 10993-17) is increasingly used to address systemic endpoints and reduce animal testing."
+        },
+        {
+          "rank": 2,
+          "doc_id": "11_biocompatibility_iso10993",
+          "title": "Biocompatibility Evaluation – ISO 10993-1",
+          "section": "Categorization by Duration of Contact",
+          "score": 0.969,
+          "text": "- Limited exposure (A): cumulative contact of 24 hours or less.\n- Prolonged exposure (B): cumulative contact of more than 24 hours up to 30 days.\n- Long-term exposure (C): cumulative contact of more than 30 days."
+        },
+        {
+          "rank": 3,
+          "doc_id": "11_biocompatibility_iso10993",
+          "title": "Biocompatibility Evaluation – ISO 10993-1",
+          "section": "Categorization by Nature of Body Contact",
+          "score": 0.805,
+          "text": "- Surface devices: contact with intact skin, mucosal membranes, or breached or compromised surfaces.\n- Externally communicating devices: contact with the blood path indirectly, tissue/bone/dentin, or circulating blood.\n- Implant devices: contact with tissue/bone or blood."
+        },
+        {
+          "rank": 4,
+          "doc_id": "11_biocompatibility_iso10993",
+          "title": "Biocompatibility Evaluation – ISO 10993-1",
+          "section": "Principles",
+          "score": 0.777,
+          "text": "ISO 10993-1, \"Biological evaluation of medical devices – Part 1: Evaluation and testing within a risk management process\", requires the biological evaluation of a device to be planned and performed as part of the ISO 14971 risk management process. Evaluation begins with characterization of materials, manufacturing processes and existing data; testing is performed only where existing information is insufficient. FDA's guidance \"Use of International Standard ISO 10993-1\" (updated September 2023) describes FDA's expectations, including a biocompatibility evaluation endpoints matrix."
+        },
+        {
+          "rank": 5,
+          "doc_id": "06_iec62304_medical_device_software",
+          "title": "IEC 62304 – Medical Device Software Life Cycle Processes",
+          "section": "Scope",
+          "score": 0.2,
+          "text": "IEC 62304:2006+A1:2015 defines life cycle requirements for the development and maintenance of medical device software, both software embedded in a device and software that is itself a medical device (Software as a Medical Device, SaMD). It is recognized by FDA as a consensus standard and harmonized in the EU. It assumes the manufacturer operates a quality management system (such as ISO 13485) and a risk management process according to ISO 14971."
+        }
+      ],
+      "rag": {
+        "answer": "ISO 10993‑1 defines three contact‑duration categories:\n\n* **Limited exposure (Category A)** – cumulative contact of **24 hours or less**.  \n* **Prolonged exposure (Category B)** – cumulative contact of **more than 24 hours up to 30 days**.  \n* **Long‑term exposure (Category C)** – cumulative contact of **more than 30 days**.  \n\nThese definitions are taken directly from ISO 10993‑1’s “Categorization by Duration of Contact” section[2].",
+        "latency_s": 0.68,
+        "total_tokens": 960,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately lists all three contact duration categories (A, B, C) with the exact time thresholds specified in the reference answer."
+        }
+      },
+      "baseline": {
+        "answer": "**ISO 10993‑1:2021 – Contact Duration Categories**\n\n| Category | Intended Use (Typical Clinical Scenario) | Maximum Continuous Contact Time* | Example Devices |\n|----------|------------------------------------------|----------------------------------|-----------------|\n| **Limited (≤ 24 h)** | Short‑term exposure (e.g., diagnostic probes, surgical instruments) | ≤ 24 hours | Endoscopic camera heads, catheters used for a single procedure |\n| **Prolonged (≤ 30 days)** | Medium‑term exposure where device remains in situ for days to weeks (e.g., temporary implants) | > 24 h and ≤ 30 days | Temporary pacing leads, wound dressings, external fixation pins |\n| **Permanent (> 30 days)** | Long‑term or lifelong implantation (e.g., orthopedic, cardiovascular implants) | > 30 days (often “indefinite”) | Hip prostheses, pacemaker generators, intra‑ocular lenses |\n\n\\*The “maximum continuous contact time” is the **upper limit** for which the biological evaluation data must be applicable. For **limited** devices, a single 24‑hour extraction is sufficient; for **prolonged** devices, testing must cover up to 30 days (often using 7‑day and 30‑day extracts); for **permanent** devices, testing must simulate > 30 days (commonly 60‑day or 90‑day extracts, or accelerated aging).\n\n**Key clause:** ISO 10993‑1:2021, **Clause 5.2** defines the three categories and links them to the required duration of biocompatibility testing (e.g., extraction times, implantation periods).",
+        "latency_s": 1.84,
+        "total_tokens": 556,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 4,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the three contact duration categories and their time thresholds (≤24h, >24h to ≤30d, >30d) as defined in the reference, although it uses the term 'Permanent' instead of 'Long-term' and adds extra context not in the reference."
+        }
+      }
+    },
+    {
+      "id": "Q10",
+      "category": "public-regulatory",
+      "question": "How often must the Periodic Safety Update Report (PSUR) be updated for Class IIa versus Class IIb and Class III devices under the EU MDR?",
+      "reference_answer": "Class IIa: when necessary and at least every two years. Class IIb and Class III: at least annually.",
+      "source_docs": [
+        "07_eu_mdr_2017_745"
+      ],
+      "retrieved_docs": [
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745",
+        "07_eu_mdr_2017_745"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Post-Market Surveillance and Reporting",
+          "score": 1.0,
+          "text": "Manufacturers must plan and operate a post-market surveillance (PMS) system proportionate to the risk class (Articles 83–86). Class I manufacturers prepare a PMS report, updated when necessary. Class IIa, IIb and III manufacturers prepare a Periodic Safety Update Report (PSUR): for Class IIa devices updated when necessary and at least every two years; for Class IIb and Class III devices at least annually. For Class III and implantable devices, the PSUR is submitted via EUDAMED to the notified body for review. Post-Market Clinical Follow-up (PMCF) under Annex XIV Part B is used to proactively collect clinical data. For implantable devices and Class III devices, a Summary of Safety and Clinical Performance (SSCP) must be published (Article 32)."
+        },
+        {
+          "rank": 2,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Transition Timelines",
+          "score": 0.712,
+          "text": "Regulation (EU) 2023/607 extended the MDR transition period for devices covered by valid certificates or declarations under the old directives: until 31 December 2027 for Class III devices and Class IIb implantable devices (with certain exceptions such as sutures, staples and dental fillings), and until 31 December 2028 for other Class IIb devices, Class IIa devices, and Class I devices that are sterile or have a measuring function. The extension applies only if conditions are met, including that the manufacturer had put in place an MDR-compliant QMS by 26 May 2024, had lodged a formal application with a notified body by 26 May 2024, and had signed a written agreement with the notified body by 26 September 2024, and that there are no significant changes in design or intended purpose."
+        },
+        {
+          "rank": 3,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Rule 11 – Software",
+          "score": 0.71,
+          "text": "Rule 11 classifies software. Software intended to provide information which is used to take decisions with diagnosis or therapeutic purposes is classified as Class IIa, except where such decisions have an impact that may cause death or an irreversible deterioration of a person's state of health (Class III) or a serious deterioration of a person's state of health or a surgical intervention (Class IIb). Software intended to monitor physiological processes is Class IIa, except where it monitors vital physiological parameters where variations could result in immediate danger to the patient (Class IIb). All other software is Class I. MDCG 2019-11 provides guidance on qualification and classification of software."
+        },
+        {
+          "rank": 4,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Classification under Annex VIII",
+          "score": 0.677,
+          "text": "Devices are classified as Class I, IIa, IIb or III using the 22 classification rules in Annex VIII, which take into account duration of contact (transient: under 60 minutes; short-term: 60 minutes to 30 days; long-term: more than 30 days), invasiveness, whether the device is active, and the part of the body affected. Class I devices that are sterile (Is), have a measuring function (Im) or are reusable surgical instruments (Ir) require notified body involvement for those aspects. All other Class I devices are self-certified by the manufacturer."
+        },
+        {
+          "rank": 5,
+          "doc_id": "07_eu_mdr_2017_745",
+          "title": "EU Medical Device Regulation (EU) 2017/745 (MDR)",
+          "section": "Vigilance – Serious Incident Reporting (Article 87)",
+          "score": 0.563,
+          "text": "Actions (FSCAs) must be reported before they are undertaken (except in urgent cases) and communicated to users via a Field Safety Notice (FSN). Statistically significant increases in non-serious incidents or expected side-effects are subject to trend reporting (Article 88)."
+        }
+      ],
+      "rag": {
+        "answer": "Under the EU MDR, the Periodic Safety Update Report (PSUR) must be:\n\n* **Class IIa devices:** updated when necessary **and at least every 2 years**.  \n* **Class IIb and Class III devices:** updated **at least annually**.  \n\nThese requirements are set out in Articles 83‑86 of the MDR [1].",
+        "latency_s": 0.75,
+        "total_tokens": 1159,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate accurately states the update frequencies for Class IIa (every 2 years) and Class IIb/III (annually) devices, matching the reference exactly, and the cited article range is factually correct for PSUR requirements under EU MDR."
+        }
+      },
+      "baseline": {
+        "answer": "**EU MDR 2021/745 – Periodic Safety Update Report (PSUR) frequency**\n\n| Device class (MDR) | PSUR update interval* | MDR reference |\n|--------------------|----------------------|----------------|\n| **Class IIa**      | **Every 2 years**    | Annex II, Section 23.1 (b) – “for class IIa devices, the PSUR shall be submitted at least every second year” |\n| **Class IIb**      | **Every 1 year**     | Annex II, Section 23.1 (b) – “for class IIb devices, the PSUR shall be submitted at least annually” |\n| **Class III**      | **Every 1 year**     | Annex II, Section 23.1 (b) – same requirement as class IIb |\n\n\\*The PSUR must be submitted to the competent authority (or notified body for devices under its surveillance) **no later than 30 days after the end of the reporting period**.  \n\nIf a device is placed on the market in a limited number of Member States only, the same intervals apply, but the report may be submitted to each concerned authority rather than a single EU‑wide submission.  \n\n(If the manufacturer has a post‑market surveillance (PMS) plan that includes a **PMS‑Plan** and **PMS‑Report**, the PSUR is the summary of those activities for the specified interval.)",
+        "latency_s": 1.86,
+        "total_tokens": 527,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 4,
+          "completeness": 4,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the frequency intervals (2 years for IIa, 1 year for IIb/III) but hallucinates specific regulatory details such as the MDR number (2021/745 instead of 2017/745), the specific Annex/Section reference (Annex II Section 23.1(b) is incorrect; PSUR requirements are in Article 86 and Annex III), and the submission deadline (30 days is not the standard MDR requirement for PSURs, which is typically tied to the end of the reporting period or specific national timelines, but the specific '30 days' claim is unsupported/invented in this context)."
+        }
+      }
+    },
+    {
+      "id": "Q11",
+      "category": "public-regulatory",
+      "question": "What is FDA's MDUFA review goal for a De Novo classification request, and what happens once it is granted?",
+      "reference_answer": "FDA aims to decide within 150 FDA review days. Granting a De Novo creates a new classification regulation, and the device can serve as a predicate for future 510(k)s.",
+      "source_docs": [
+        "03_fda_pma_and_de_novo"
+      ],
+      "retrieved_docs": [
+        "03_fda_pma_and_de_novo",
+        "03_fda_pma_and_de_novo",
+        "03_fda_pma_and_de_novo",
+        "03_fda_pma_and_de_novo",
+        "03_fda_pma_and_de_novo"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "03_fda_pma_and_de_novo",
+          "title": "FDA Premarket Approval (PMA) and De Novo Classification",
+          "section": "De Novo Outcome and Timeline",
+          "score": 1.0,
+          "text": "Under MDUFA goals, FDA aims to decide on De Novo requests within 150 FDA review days. When a De Novo request is granted, FDA creates a new classification regulation for the device type, and the device may then serve as a predicate for future 510(k) submissions. De Novo submissions have also transitioned to the eSTAR electronic format."
+        },
+        {
+          "rank": 2,
+          "doc_id": "03_fda_pma_and_de_novo",
+          "title": "FDA Premarket Approval (PMA) and De Novo Classification",
+          "section": "PMA Review Timeline",
+          "score": 0.74,
+          "text": "By regulation, FDA has 180 days to review a PMA. Under MDUFA goals, FDA aims to issue a decision within 180 FDA days for an original PMA that does not require an advisory committee (panel) meeting, and within 320 FDA days when a panel meeting is required. FDA typically performs a preapproval inspection of the manufacturing facilities for quality system compliance before approval."
+        },
+        {
+          "rank": 3,
+          "doc_id": "03_fda_pma_and_de_novo",
+          "title": "FDA Premarket Approval (PMA) and De Novo Classification",
+          "section": "De Novo Classification Request",
+          "score": 0.703,
+          "text": "The De Novo pathway provides a route to market for novel devices of low to moderate risk for which there is no legally marketed predicate. The requirements are codified in 21 CFR Part 860 Subpart D (final rule effective January 3, 2022). A sponsor may submit a De Novo request directly, or after receiving a Not Substantially Equivalent (NSE) determination on a 510(k). The request must include a proposed classification, a description of the risks to health, and proposed general and, if Class II, special controls that mitigate those risks, supported by data."
+        },
+        {
+          "rank": 4,
+          "doc_id": "03_fda_pma_and_de_novo",
+          "title": "FDA Premarket Approval (PMA) and De Novo Classification",
+          "section": "Breakthrough Devices Program",
+          "score": 0.611,
+          "text": "The Breakthrough Devices Program is a voluntary program for devices that provide more effective treatment or diagnosis of life-threatening or irreversibly debilitating diseases or conditions. It offers interactive and timely communication with FDA and prioritized review for 510(k), De Novo and PMA submissions, but does not change the statutory standard for marketing authorization."
+        },
+        {
+          "rank": 5,
+          "doc_id": "03_fda_pma_and_de_novo",
+          "title": "FDA Premarket Approval (PMA) and De Novo Classification",
+          "section": "Premarket Approval (PMA)",
+          "score": 0.533,
+          "text": "PMA is the most stringent type of device marketing application, required for most Class III devices. It is governed by section 515 of the FD&C Act and 21 CFR Part 814. A PMA must contain sufficient valid scientific evidence to provide reasonable assurance that the device is safe and effective for its intended use. Unlike a 510(k), PMA approval is based on FDA's independent determination of safety and effectiveness rather than comparison to a predicate, and typically requires clinical data from an investigation conducted under an Investigational Device Exemption (IDE, 21 CFR Part 812)."
+        }
+      ],
+      "rag": {
+        "answer": "FDA’s MDUFA goal is to complete the review of a De Novo classification request within **150 FDA review days**. When the request is granted, **FDA creates a new classification regulation for that device type**, allowing the device to serve as a predicate for future 510(k) submissions. [1]",
+        "latency_s": 0.66,
+        "total_tokens": 889,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately reflects the 150-day review goal and the consequence of creating a new classification regulation for predicate use, matching the reference perfectly."
+        }
+      },
+      "baseline": {
+        "answer": "**FDA MDUFA Review Goal for a De Novo Request**  \n- **Target review time:** **120 calendar days** from the date the complete De Novo submission is received (MDUFA II, § 520.5; updated in MDUFA III to 120 days).  \n- This clock starts after the FDA determines the submission is “complete” (i.e., all required information per 21 CFR 814.102(e) is present).\n\n**What Happens When De Novo Is Granted**  \n\n| Step | Outcome | Regulatory Effect |\n|------|---------|--------------------|\n| **De Novo classification order issued** | The device is assigned to **Class I or Class II** with a new special control (or recognized general controls). | The device now has a **predicate** for future 510(k) submissions. |\n| **Device can be marketed** | Manufacturer may **commercially distribute** the device in the U.S. (subject to any post‑market requirements in the order). | No further pre‑market submission is needed for that device, unless a change triggers a new 510(k) or PMA. |\n| **Future submissions** | Other manufacturers can use the newly classified device as a **predicate** for 510(k) clearance. | Accelerates market entry for similar devices and expands the “cleared” device landscape. |\n\n*If the FDA issues a “Not Granted” decision, the sponsor must either (a) submit a traditional PMA, (b) pursue a 510(k) using an existing predicate, or (c) address the deficiencies and resubmit.*",
+        "latency_s": 1.02,
+        "total_tokens": 541,
+        "key_fact_recall": 0.333,
+        "key_facts_found": [
+          false,
+          true,
+          false
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 3,
+          "hallucination": true,
+          "abstained": false,
+          "rationale": "The candidate incorrectly states the review goal as 120 calendar days, whereas the reference specifies 150 FDA review days, constituting a factual hallucination, though it correctly identifies the predicate status outcome."
+        }
+      }
+    },
+    {
+      "id": "Q12",
+      "category": "internal-company",
+      "question": "What should a nurse do when the Veridian InfusePro 300 infusion pump displays error code E-401?",
+      "reference_answer": "E-401 is a system fault (internal error). Stop the infusion, remove the pump from service, label it 'Do Not Use', and contact Veridian Technical Service; do not attempt to restart it on a patient.",
+      "source_docs": [
+        "13_veridian_infusepro300_ifu"
+      ],
+      "retrieved_docs": [
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "15_veridian_fsn_2026_07_battery"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Alarm and Error Codes",
+          "score": 1.0,
+          "text": "- E-101 Downstream occlusion: check the patient line for closed clamps, kinks or a clotted catheter; clear the cause and press RESUME.\n- E-102 Upstream occlusion: check the container spike and upstream clamp; ensure the container is not empty.\n- E-103 Air-in-line: stop the infusion, open the door, remove the air per hospital protocol, re-prime the set, and restart.\n- E-201 Low battery: approximately 30 minutes of operation remain; connect to AC mains.\n- E-202 Battery depleted: approximately 5 minutes remain before the pump stops; connect to AC mains immediately.\n- E-301 Door open: close and latch the pump door.\n- E-401 System fault: the pump has detected an internal error. Stop the infusion, remove the pump from service, label it \"Do Not Use\", and contact Veridian Technical Service. Do not attempt to restart the pump on a patient."
+        },
+        {
+          "rank": 2,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Introduction",
+          "score": 0.751,
+          "text": "Fictional example document created for this RAG demonstration. Veridian MedTech and the InfusePro 300 are not real."
+        },
+        {
+          "rank": 3,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Device Description and Intended Use",
+          "score": 0.72,
+          "text": "The InfusePro 300 is a large-volume, single-channel volumetric infusion pump intended for the controlled delivery of fluids, medications, blood and blood products via intravenous, intra-arterial, subcutaneous and epidural routes, in hospital and outpatient clinical settings, by trained healthcare professionals. In the United States it is a Class II device under product code FRN (21 CFR 880.5725). In the EU it is a Class IIb device under MDR Annex VIII Rule 12. Current software version: 4.2.1. The pump includes the DoseGuard drug library with hard limits (cannot be overridden) and soft limits (can be overridden after clinician confirmation)."
+        },
+        {
+          "rank": 4,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Cleaning and Maintenance",
+          "score": 0.67,
+          "text": "Clean the external surfaces between patients with a soft cloth moistened with 70% isopropyl alcohol or a 0.5% sodium hypochlorite solution. Do not immerse the pump or spray liquid directly into the door mechanism or connectors, and do not autoclave. A preventive maintenance check, including flow accuracy and occlusion pressure verification, must be performed by qualified biomedical personnel every 12 months. The expected service life of the InfusePro 300 is 7 years."
+        },
+        {
+          "rank": 5,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Actions to Be Taken by Users",
+          "score": 0.659,
+          "text": "1. Until the software update is installed, keep affected pumps connected to AC mains power whenever possible, especially during infusion of critical or life-sustaining medications.\n2. Do not rely on the battery gauge display; during patient transport, use a fully charged pump and monitor the infusion continuously.\n3. Complete and return the Customer Acknowledgement Form to Veridian within 10 days of receiving this notice, even if you no longer have affected pumps.\n4. Forward this notice to all users within your organization who need to be aware of it."
+        }
+      ],
+      "rag": {
+        "answer": "When error code **E‑401** appears, the nurse must :\n\n1. **Stop the infusion immediately.**  \n2. **Remove the pump from service** and place a “Do Not Use” label on it.  \n3. **Contact Veridian Technical Service** for assistance; do not try to restart the pump on a patient.  \n\nThese steps are specified in the alarm and error code guidance for E‑401[1].",
+        "latency_s": 1.09,
+        "total_tokens": 1137,
+        "key_fact_recall": 0.75,
+        "key_facts_found": [
+          false,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately lists all required actions (stop infusion, remove from service, label, contact service, do not restart) matching the reference exactly."
+        }
+      },
+      "baseline": {
+        "answer": "I’m sorry, but I don’t have specific information on the Veridian InfusePro 300 infusion pump or its error‑code meanings. For patient safety, the nurse should follow the device’s user manual and the facility’s standard operating procedures, which typically include:\n\n1. **Stop the infusion** and verify the patient’s status.  \n2. **Check the pump’s display** for any additional prompts or alerts.  \n3. **Consult the troubleshooting guide** in the user manual for error E‑401.  \n4. **Contact biomedical engineering/clinical engineering** for technical support if the manual does not resolve the issue.  \n5. **Document** the error, actions taken, and patient condition in the medical record.\n\nIf you have access to the device’s service manual or the manufacturer’s technical support line, they can provide the exact meaning and corrective steps for error E‑401.",
+        "latency_s": 0.82,
+        "total_tokens": 392,
+        "key_fact_recall": 0.0,
+        "key_facts_found": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 2,
+          "completeness": 1,
+          "hallucination": false,
+          "abstained": true,
+          "rationale": "The candidate abstained from providing the specific error code meaning and required actions (labeling, contacting specific service, no restart) found in the reference, offering only generic safety advice instead."
+        }
+      }
+    },
+    {
+      "id": "Q13",
+      "category": "internal-company",
+      "question": "What is the default KVO rate on the Veridian InfusePro 300 and what range can it be configured to?",
+      "reference_answer": "Default KVO is 1.0 mL/h, configurable from 0.1 to 5.0 mL/h (or the programmed rate, if lower).",
+      "source_docs": [
+        "13_veridian_infusepro300_ifu"
+      ],
+      "retrieved_docs": [
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu",
+        "13_veridian_infusepro300_ifu"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Technical Specifications",
+          "score": 1.0,
+          "text": "- Flow rate range: 0.1 to 999 mL/h (0.1 mL/h increments from 0.1 to 99.9 mL/h; 1 mL/h increments from 100 to 999 mL/h).\n- Volume to be infused (VTBI): 0.1 to 9999 mL.\n- Flow rate accuracy: ±5% under nominal conditions (per IEC 60601-2-24 test methods).\n- KVO (Keep Vein Open) rate after VTBI complete: default 1.0 mL/h, configurable from 0.1 to 5.0 mL/h (or the programmed rate, if lower).\n- Downstream occlusion pressure alarm thresholds: Low 300 mmHg, Medium 500 mmHg (default), High 800 mmHg.\n- Air-in-line detection: single bubble of 50 µL or larger, or cumulative air of 1.0 mL within 15 minutes.\n- Battery: rechargeable 7.4 V lithium-ion; operating time at least 8 hours at 25 mL/h from full charge; full recharge time 5 hours when connected to AC mains; battery pack replacement recommended every 24 months.\n- Ingress protection: IPX2. Weight: 2.1 kg."
+        },
+        {
+          "rank": 2,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Introduction",
+          "score": 0.608,
+          "text": "Fictional example document created for this RAG demonstration. Veridian MedTech and the InfusePro 300 are not real."
+        },
+        {
+          "rank": 3,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Alarm and Error Codes",
+          "score": 0.545,
+          "text": "- E-101 Downstream occlusion: check the patient line for closed clamps, kinks or a clotted catheter; clear the cause and press RESUME.\n- E-102 Upstream occlusion: check the container spike and upstream clamp; ensure the container is not empty.\n- E-103 Air-in-line: stop the infusion, open the door, remove the air per hospital protocol, re-prime the set, and restart.\n- E-201 Low battery: approximately 30 minutes of operation remain; connect to AC mains.\n- E-202 Battery depleted: approximately 5 minutes remain before the pump stops; connect to AC mains immediately.\n- E-301 Door open: close and latch the pump door.\n- E-401 System fault: the pump has detected an internal error. Stop the infusion, remove the pump from service, label it \"Do Not Use\", and contact Veridian Technical Service. Do not attempt to restart the pump on a patient."
+        },
+        {
+          "rank": 4,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Cleaning and Maintenance",
+          "score": 0.543,
+          "text": "Clean the external surfaces between patients with a soft cloth moistened with 70% isopropyl alcohol or a 0.5% sodium hypochlorite solution. Do not immerse the pump or spray liquid directly into the door mechanism or connectors, and do not autoclave. A preventive maintenance check, including flow accuracy and occlusion pressure verification, must be performed by qualified biomedical personnel every 12 months. The expected service life of the InfusePro 300 is 7 years."
+        },
+        {
+          "rank": 5,
+          "doc_id": "13_veridian_infusepro300_ifu",
+          "title": "Veridian MedTech InfusePro 300 Volumetric Infusion Pump – Instructions for Use (Excerpt)",
+          "section": "Device Description and Intended Use",
+          "score": 0.515,
+          "text": "The InfusePro 300 is a large-volume, single-channel volumetric infusion pump intended for the controlled delivery of fluids, medications, blood and blood products via intravenous, intra-arterial, subcutaneous and epidural routes, in hospital and outpatient clinical settings, by trained healthcare professionals. In the United States it is a Class II device under product code FRN (21 CFR 880.5725). In the EU it is a Class IIb device under MDR Annex VIII Rule 12. Current software version: 4.2.1. The pump includes the DoseGuard drug library with hard limits (cannot be overridden) and soft limits (can be overridden after clinician confirmation)."
+        }
+      ],
+      "rag": {
+        "answer": "The InfusePro 300’s default “keep‑vein‑open” (KVO) rate is **1.0 mL/h**.  \nIt can be programmed to any rate between **0.1 mL/h and 5.0 mL/h** (or the programmed infusion rate if that is lower)[1].",
+        "latency_s": 0.65,
+        "total_tokens": 1256,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately states the default KVO rate (1.0 mL/h) and the configurable range (0.1 to 5.0 mL/h, or the programmed rate if lower), matching the reference exactly."
+        }
+      },
+      "baseline": {
+        "answer": "I’m sorry, but I don’t have that specific information.",
+        "latency_s": 2.03,
+        "total_tokens": 217,
+        "key_fact_recall": 0.0,
+        "key_facts_found": [
+          false,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 1,
+          "completeness": 1,
+          "hallucination": false,
+          "abstained": true,
+          "rationale": "The candidate declined to answer, providing no information regarding the default or configurable KVO rates."
+        }
+      }
+    },
+    {
+      "id": "Q14",
+      "category": "internal-company",
+      "question": "Under Veridian SOP-QA-014, how quickly must Regulatory Affairs complete the reportability assessment, and what conditions require opening a CAPA?",
+      "reference_answer": "RA completes the initial MDR/vigilance reportability assessment within 2 business days of complaint entry. A CAPA is required for 3 or more complaints with the same failure mode within a rolling 90-day period, any death or serious injury with a confirmed device malfunction, or a statistically significant upward trend.",
+      "source_docs": [
+        "14_veridian_sop_qa014_complaint_handling"
+      ],
+      "retrieved_docs": [
+        "14_veridian_sop_qa014_complaint_handling",
+        "14_veridian_sop_qa014_complaint_handling",
+        "14_veridian_sop_qa014_complaint_handling",
+        "14_veridian_sop_qa014_complaint_handling",
+        "14_veridian_sop_qa014_complaint_handling"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Reportability Assessment",
+          "score": 1.0,
+          "text": "Regulatory Affairs completes the initial MDR and vigilance reportability assessment within 2 business days of complaint entry. Any complaint involving a death or serious injury must be escalated by telephone and email to the VP of Quality and the Head of Regulatory Affairs within 24 hours of intake. Internal target: reportable 30-day MDRs are submitted no later than calendar day 25 after the awareness date to provide margin before the 30-day regulatory deadline; 5-day reports and EU 2-day reports are submitted on the timelines required by regulation."
+        },
+        {
+          "rank": 2,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Responsibilities",
+          "score": 0.896,
+          "text": "- Any employee: forward any complaint information to the Complaint Unit.\n- Complaint Coordinator (Complaint Unit): logs, triages and tracks complaints.\n- Regulatory Affairs (RA): makes the reportability decision and submits eMDR and EU vigilance reports.\n- Quality Engineering (QE): performs the investigation and root-cause analysis.\n- Complaint Review Board (CRB): meets weekly on Tuesdays to review open complaints, trends and CAPA escalations."
+        },
+        {
+          "rank": 3,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Trending and CAPA Escalation",
+          "score": 0.765,
+          "text": "Complaints are trended monthly by product family and failure mode. A CAPA must be opened when any of the following occurs: three or more complaints with the same failure mode within a rolling 90-day period; any complaint involving a death or serious injury where a device malfunction is confirmed; or a statistically significant upward trend identified by the monthly trend analysis."
+        },
+        {
+          "rank": 4,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Investigation and Closure",
+          "score": 0.677,
+          "text": "Quality Engineering completes the investigation and root-cause analysis within 30 calendar days for non-reportable complaints and within 60 calendar days for reportable complaints. If a complaint is not investigated, QE documents the justification and the name of the person responsible for the decision. Complaints are closed by the Complaint Coordinator after QA approval in VQMS."
+        },
+        {
+          "rank": 5,
+          "doc_id": "14_veridian_sop_qa014_complaint_handling",
+          "title": "Veridian MedTech SOP-QA-014 – Complaint Handling and Adverse Event Reporting (Rev. F)",
+          "section": "Purpose and Scope",
+          "score": 0.673,
+          "text": "This procedure defines how Veridian MedTech receives, documents, evaluates, investigates and closes complaints for all marketed products, including the InfusePro 300 infusion pump, and how reportability to FDA (21 CFR Part 803) and EU competent authorities (MDR Article 87) is determined. It implements ISO 13485:2016 clause 8.2.2 and the FDA QMSR."
+        }
+      ],
+      "rag": {
+        "answer": "Regulatory Affairs must finish the initial MDR and vigilance reportability assessment **within 2 business days of complaint entry**[1].  \n\nA CAPA must be opened when any of the following occurs[3]:\n\n1. **Three or more complaints** with the same failure mode are recorded within a **rolling 90‑day period**.  \n2. **Any complaint involving a death or serious injury** where a device malfunction is confirmed.  \n3. A **statistically significant upward trend** is identified by the monthly trend analysis.",
+        "latency_s": 0.88,
+        "total_tokens": 974,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 5,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate answer accurately reflects all specific timeframes and conditions for CAPA initiation stated in the reference answer without adding contradictory or invented details."
+        }
+      },
+      "baseline": {
+        "answer": "I’m not familiar with the specific contents of Veridian SOP‑QA‑014, so I can’t provide the exact turnaround time for the regulatory‑affairs reportability assessment or the precise triggers for opening a CAPA under that document. If you can share the relevant excerpt or provide more context, I can help interpret it.",
+        "latency_s": 0.46,
+        "total_tokens": 283,
+        "key_fact_recall": 0.0,
+        "key_facts_found": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 1,
+          "completeness": 1,
+          "hallucination": false,
+          "abstained": true,
+          "rationale": "The candidate explicitly declined to answer due to lack of knowledge, providing no factual information from the reference."
+        }
+      }
+    },
+    {
+      "id": "Q15",
+      "category": "internal-company",
+      "question": "Which InfusePro 300 pumps are affected by Field Safety Notice FSN-2026-07, and what interim action should users take?",
+      "reference_answer": "Serial numbers IP3-240001 to IP3-245500 running software 4.2.0 (4.2.1 is not affected). Keep pumps connected to AC mains whenever possible, especially for critical medications, do not rely on the battery gauge, and return the acknowledgement form within 10 days.",
+      "source_docs": [
+        "15_veridian_fsn_2026_07_battery"
+      ],
+      "retrieved_docs": [
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Actions to Be Taken by Users",
+          "score": 1.0,
+          "text": "1. Until the software update is installed, keep affected pumps connected to AC mains power whenever possible, especially during infusion of critical or life-sustaining medications.\n2. Do not rely on the battery gauge display; during patient transport, use a fully charged pump and monitor the infusion continuously.\n3. Complete and return the Customer Acknowledgement Form to Veridian within 10 days of receiving this notice, even if you no longer have affected pumps.\n4. Forward this notice to all users within your organization who need to be aware of it."
+        },
+        {
+          "rank": 2,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Affected Products",
+          "score": 0.986,
+          "text": "InfusePro 300 volumetric infusion pumps with serial numbers IP3-240001 through IP3-245500 running software version 4.2.0. Pumps already running software version 4.2.1 are not affected."
+        },
+        {
+          "rank": 3,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Actions Taken by Veridian",
+          "score": 0.962,
+          "text": "Veridian is providing software version 4.2.1, which corrects the battery gauge algorithm. Veridian Field Service will install the update on all affected pumps by 15 December 2026, with no charge to customers. This action has been reported to FDA as a correction under 21 CFR Part 806 and is being conducted as a voluntary Class II recall in the United States; it is being reported as a Field Safety Corrective Action to the EU competent authorities. Contact Veridian Technical Service at the number on your pump label for questions."
+        },
+        {
+          "rank": 4,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Introduction",
+          "score": 0.905,
+          "text": "Fictional example document created for this RAG demonstration. Veridian MedTech is not a real company."
+        },
+        {
+          "rank": 5,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Description of the Problem",
+          "score": 0.806,
+          "text": "Veridian has identified that on affected pumps the software battery gauge may overestimate the remaining battery charge when the actual remaining charge is below 10%. As a result, the E-201 Low Battery alarm may not occur, and the pump may stop infusing with only the E-202 Battery Depleted alarm and less than 1 minute of warning, instead of the specified approximately 5 minutes. An interruption of infusion of critical medications (for example vasopressors or inotropes) could lead to serious harm. Veridian has received 14 complaints related to this issue, including 2 reports of delayed therapy; no deaths have been reported."
+        }
+      ],
+      "rag": {
+        "answer": "The Field Safety Notice applies to **InfusePro 300 volumetric infusion pumps with serial numbers IP3‑240001 through IP3‑245500 that are running software version 4.2.0** (pumps already on version 4.2.1 are not affected)[2].  \n\n**Interim user action:** Until the corrective software update is installed, users must **keep the affected pumps plugged into AC mains power whenever possible (especially during infusion of critical or life‑sustaining medications) and must not rely on the battery‑gauge display; instead use a fully charged pump and continuously monitor the infusion**[1].",
+        "latency_s": 1.37,
+        "total_tokens": 1066,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 4,
+          "completeness": 4,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the affected serial numbers and software version, as well as the primary interim actions (AC mains, battery gauge), but omits the specific requirement to return the acknowledgement form within 10 days."
+        }
+      },
+      "baseline": {
+        "answer": "I’m sorry, but I don’t have information on Field Safety Notice FSN‑2026‑07 or the specific InfusePro 300 pump models it covers.",
+        "latency_s": 0.44,
+        "total_tokens": 250,
+        "key_fact_recall": 0.0,
+        "key_facts_found": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 1,
+          "completeness": 1,
+          "hallucination": false,
+          "abstained": true,
+          "rationale": "The candidate failed to provide any of the required information regarding affected serial numbers, software versions, or interim actions, instead declining to answer."
+        }
+      }
+    },
+    {
+      "id": "Q16",
+      "category": "internal-company",
+      "question": "By what date will Veridian install the software fix for the InfusePro 300 battery gauge issue, and how is the action classified in the United States?",
+      "reference_answer": "Veridian Field Service will install software 4.2.1 on all affected pumps by 15 December 2026; it is a correction reported under 21 CFR Part 806 and conducted as a voluntary Class II recall.",
+      "source_docs": [
+        "15_veridian_fsn_2026_07_battery"
+      ],
+      "retrieved_docs": [
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery",
+        "15_veridian_fsn_2026_07_battery"
+      ],
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "sources": [
+        {
+          "rank": 1,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Actions Taken by Veridian",
+          "score": 1.0,
+          "text": "Veridian is providing software version 4.2.1, which corrects the battery gauge algorithm. Veridian Field Service will install the update on all affected pumps by 15 December 2026, with no charge to customers. This action has been reported to FDA as a correction under 21 CFR Part 806 and is being conducted as a voluntary Class II recall in the United States; it is being reported as a Field Safety Corrective Action to the EU competent authorities. Contact Veridian Technical Service at the number on your pump label for questions."
+        },
+        {
+          "rank": 2,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Actions to Be Taken by Users",
+          "score": 0.854,
+          "text": "1. Until the software update is installed, keep affected pumps connected to AC mains power whenever possible, especially during infusion of critical or life-sustaining medications.\n2. Do not rely on the battery gauge display; during patient transport, use a fully charged pump and monitor the infusion continuously.\n3. Complete and return the Customer Acknowledgement Form to Veridian within 10 days of receiving this notice, even if you no longer have affected pumps.\n4. Forward this notice to all users within your organization who need to be aware of it."
+        },
+        {
+          "rank": 3,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Affected Products",
+          "score": 0.776,
+          "text": "InfusePro 300 volumetric infusion pumps with serial numbers IP3-240001 through IP3-245500 running software version 4.2.0. Pumps already running software version 4.2.1 are not affected."
+        },
+        {
+          "rank": 4,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Description of the Problem",
+          "score": 0.766,
+          "text": "Veridian has identified that on affected pumps the software battery gauge may overestimate the remaining battery charge when the actual remaining charge is below 10%. As a result, the E-201 Low Battery alarm may not occur, and the pump may stop infusing with only the E-202 Battery Depleted alarm and less than 1 minute of warning, instead of the specified approximately 5 minutes. An interruption of infusion of critical medications (for example vasopressors or inotropes) could lead to serious harm. Veridian has received 14 complaints related to this issue, including 2 reports of delayed therapy; no deaths have been reported."
+        },
+        {
+          "rank": 5,
+          "doc_id": "15_veridian_fsn_2026_07_battery",
+          "title": "Veridian MedTech Urgent Field Safety Notice FSN-2026-07 – InfusePro 300 Battery Gauge Issue",
+          "section": "Introduction",
+          "score": 0.766,
+          "text": "Fictional example document created for this RAG demonstration. Veridian MedTech is not a real company."
+        }
+      ],
+      "rag": {
+        "answer": "Veridian will install the software update on all affected InfusePro 300 pumps **by 15 December 2026**. In the United States the action is being reported as a **voluntary Class II recall** under 21 CFR Part 806[1].",
+        "latency_s": 0.54,
+        "total_tokens": 946,
+        "key_fact_recall": 1.0,
+        "key_facts_found": [
+          true,
+          true
+        ],
+        "judge": {
+          "correctness": 5,
+          "completeness": 4,
+          "hallucination": false,
+          "abstained": false,
+          "rationale": "The candidate correctly identifies the date, classification, and regulatory code, but omits the specific software version number (4.2.1) mentioned in the reference."
+        }
+      },
+      "baseline": {
+        "answer": "I’m sorry, but I don’t have the specific information about Veridian’s schedule for installing the software fix for the InfusePro 300 battery‑gauge issue, nor the exact classification of that corrective action in the United States.",
+        "latency_s": 0.43,
+        "total_tokens": 263,
+        "key_fact_recall": 0.0,
+        "key_facts_found": [
+          false,
+          false
+        ],
+        "judge": {
+          "correctness": 1,
+          "completeness": 1,
+          "hallucination": false,
+          "abstained": true,
+          "rationale": "The candidate explicitly states it lacks the information and declines to answer, providing none of the specific details (date, software version, regulatory classification) found in the reference."
+        }
+      }
+    }
+  ]
+}
